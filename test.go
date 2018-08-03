@@ -83,10 +83,13 @@ func match(img, pattern image.Image, x1, y1, x2, y2 int) (float64, error) {
 			if !isColorSame(referColor, img.At(i+referX, j+referY), GAP) {
 				continue
 			}
-			fmt.Println("find the same reference point")
-			fmt.Printf("from %v, %v to %v, %v\n", referX, referY, i+referX, j+referY)
+			// fmt.Println("find the same reference point")
+			// fmt.Printf("from %v, %v to %v, %v\n", referX, referY, i+referX, j+referY)
 			diffNow, _ := calDiff(img, pattern, i, j)
-			fmt.Printf("diff now is %v\n", diffNow)
+			// fmt.Printf("diff now is %v\n", diffNow)
+			if diffNow < 0.05 {
+				return diffNow, nil
+			}
 			if diffNow < diff {
 				diff = diffNow
 			}
@@ -101,14 +104,58 @@ func completeMatch(img, pattern image.Image) (float64, error) {
 	return match(img, pattern, 0, 0, imgDx, imgDy)
 }
 
+type result struct {
+	pos    int
+	isCoin bool
+}
+
+func checkExist(img, pattern, coin image.Image) []result {
+	var results []result
+	picX := [4]int{473, 752, 1033, 1317}
+	picY := [2]int{541, 794}
+	picSizeX, picSizeY := 124, 123
+
+	coinX := [4]int{441, 724, 1004, 1286}
+	coinY := [2]int{690, 949}
+	coinSizeX, coinSizeY := 66, 53
+
+	index := -1
+
+	for i, vi := range picX {
+		for j, vj := range picY {
+			index++
+			similarity, _ := match(img, pattern, vi, vj, vi+picSizeX, vj+picSizeY)
+			if similarity >= 0.05 {
+				continue
+			}
+			fmt.Printf("Find pattern in position %v\n", index)
+			similarity, _ = match(img, coin, coinX[i], coinY[j], coinX[i]+coinSizeX, coinY[j]+coinSizeY)
+			fmt.Printf("Coin similarity is %v\n", similarity)
+			if similarity < 0.05 {
+				fmt.Println("And it can be bought by coin")
+				results = append(results, result{index, true})
+			} else {
+				fmt.Println("And it can be bought by diamond")
+				results = append(results, result{index, false})
+			}
+		}
+	}
+	return results
+}
+
 func main() {
-	file1, _ := os.Open("1.png")
-	file2, _ := os.Open("arena.png")
+	fileCoin, _ := os.Open("coin.png")
+	imgCoin, _ := png.Decode(fileCoin)
+
+	file1, _ := os.Open("6.png")
+	file2, _ := os.Open("casino.png")
 	defer file1.Close()
 	defer file2.Close()
 	img1, _ := png.Decode(file1)
 	img2, _ := png.Decode(file2)
-	fmt.Println(findFirstValidPoint(img2))
+
+	// fmt.Println(findFirstValidPoint(img2))
 	// fmt.Println(calDiff(img1, img2, 0, 0))
-	fmt.Println(completeMatch(img1, img2))
+	// fmt.Println(completeMatch(img1, img2))
+	fmt.Println(checkExist(img1, img2, imgCoin))
 }
