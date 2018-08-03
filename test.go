@@ -18,6 +18,16 @@ func abs(n int) int {
 	return n
 }
 
+func absOmitTrival(n int) int {
+	if n < 0 {
+		return -n
+	}
+	if n < 10 {
+		return 0
+	}
+	return n
+}
+
 func findFirstValidPoint(img image.Image) (int, int, error) {
 	width := img.Bounds().Dx()
 	height := img.Bounds().Dy()
@@ -63,7 +73,7 @@ func calDiff(img, pattern image.Image, x, y int) (float64, error) {
 			imgR, imgG, imgB, _ := rgbaModel(img.At(imgX, imgY))
 			// fmt.Println(imgR, imgG, imgB)
 			validPointNum++
-			t := abs(patternR-imgR) + abs(patternG-imgG) + abs(patternB-imgB)
+			t := absOmitTrival(patternR-imgR) + absOmitTrival(patternG-imgG) + absOmitTrival(patternB-imgB)
 			sum += t
 		}
 	}
@@ -147,7 +157,7 @@ func main() {
 	fileCoin, _ := os.Open("coin.png")
 	imgCoin, _ := png.Decode(fileCoin)
 
-	file1, _ := os.Open("6.png")
+	file1, _ := os.Open("3.png")
 	file2, _ := os.Open("casino.png")
 	defer file1.Close()
 	defer file2.Close()
