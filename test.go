@@ -46,7 +46,7 @@ func isColorSame(c1 color.Color, c2 color.Color, gap int) bool {
 	return false
 }
 
-func calDiff(img image.Image, pattern image.Image, x int, y int) (float64, error) {
+func calDiff(img, pattern image.Image, x, y int) (float64, error) {
 	width := pattern.Bounds().Dx()
 	height := pattern.Bounds().Dy()
 	sum := 0
@@ -70,16 +70,16 @@ func calDiff(img image.Image, pattern image.Image, x int, y int) (float64, error
 	return float64(sum) / (float64(validPointNum) * 3.0 * 255.0), nil
 }
 
-func match(img image.Image, pattern image.Image) (float64, error) {
+func match(img, pattern image.Image, x1, y1, x2, y2 int) (float64, error) {
 	patternDx := pattern.Bounds().Dx()
 	patternDy := pattern.Bounds().Dy()
-	imgDx := img.Bounds().Dx()
-	imgDy := img.Bounds().Dy()
+	imgDx := x2
+	imgDy := y2
 	referX, referY, _ := findFirstValidPoint(pattern)
 	referColor := pattern.At(referX, referY)
 	diff := 1.0
-	for i := 0; i+patternDx <= imgDx; i++ {
-		for j := 0; j+patternDy <= imgDy; j++ {
+	for i := x1; i+patternDx <= imgDx; i++ {
+		for j := y1; j+patternDy <= imgDy; j++ {
 			if !isColorSame(referColor, img.At(i+referX, j+referY), GAP) {
 				continue
 			}
@@ -95,6 +95,12 @@ func match(img image.Image, pattern image.Image) (float64, error) {
 	return diff, nil
 }
 
+func completeMatch(img, pattern image.Image) (float64, error) {
+	imgDx := img.Bounds().Dx()
+	imgDy := img.Bounds().Dy()
+	return match(img, pattern, 0, 0, imgDx, imgDy)
+}
+
 func main() {
 	file1, _ := os.Open("1.png")
 	file2, _ := os.Open("arena.png")
@@ -104,5 +110,5 @@ func main() {
 	img2, _ := png.Decode(file2)
 	fmt.Println(findFirstValidPoint(img2))
 	// fmt.Println(calDiff(img1, img2, 0, 0))
-	fmt.Println(match(img1, img2))
+	fmt.Println(completeMatch(img1, img2))
 }
