@@ -1,3 +1,3 @@
-adb push test /sdcard/go/test
-adb shell "su -c mv /sdcard/go/test /data/go/test" 
-adb shell "su -c chmod a+x /data/go/test"
+adb push market /sdcard/go/market
+adb shell "su -c mv /sdcard/go/market /data/go/market" 
+adb shell "su -c chmod a+x /data/go/market"

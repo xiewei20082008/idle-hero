@@ -1,2 +1,2 @@
-test:
-	env GOOS=linux GOARCH=arm64 go build  test.go
+market:
+	env GOOS=linux GOARCH=arm64 go build  market.go
