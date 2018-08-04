@@ -9,7 +9,8 @@ import (
 	"os"
 )
 
-var GAP = 10
+var GAP = 16
+var DEBUG = false
 
 func abs(n int) int {
 	if n < 0 {
@@ -20,9 +21,9 @@ func abs(n int) int {
 
 func absOmitTrival(n int) int {
 	if n < 0 {
-		return -n
+		n = -n
 	}
-	if n < 10 {
+	if n < 32 {
 		return 0
 	}
 	return n
@@ -88,22 +89,24 @@ func match(img, pattern image.Image, x1, y1, x2, y2 int) (float64, error) {
 	referX, referY, _ := findFirstValidPoint(pattern)
 	referColor := pattern.At(referX, referY)
 	diff := 1.0
+	targetX, targetY := 0, 0
 	for i := x1; i+patternDx <= imgDx; i++ {
 		for j := y1; j+patternDy <= imgDy; j++ {
 			if !isColorSame(referColor, img.At(i+referX, j+referY), GAP) {
 				continue
 			}
-			// fmt.Println("find the same reference point")
-			// fmt.Printf("from %v, %v to %v, %v\n", referX, referY, i+referX, j+referY)
 			diffNow, _ := calDiff(img, pattern, i, j)
-			// fmt.Printf("diff now is %v\n", diffNow)
 			if diffNow < 0.05 {
 				return diffNow, nil
 			}
 			if diffNow < diff {
+				targetX, targetY = i, j
 				diff = diffNow
 			}
 		}
+	}
+	if DEBUG {
+		fmt.Printf("match at %v, %v\n", targetX, targetY)
 	}
 	return diff, nil
 }
@@ -138,14 +141,14 @@ func checkExist(img, pattern, coin image.Image) []result {
 			if similarity >= 0.05 {
 				continue
 			}
-			fmt.Printf("Find pattern in position %v\n", index)
 			similarity, _ = match(img, coin, coinX[i], coinY[j], coinX[i]+coinSizeX, coinY[j]+coinSizeY)
-			fmt.Printf("Coin similarity is %v\n", similarity)
-			if similarity < 0.05 {
-				fmt.Println("And it can be bought by coin")
+			if DEBUG {
+				fmt.Printf("Find pattern in position %v\n", index)
+				fmt.Printf("Coin similarity is %v\n", similarity)
+			}
+			if similarity < 0.08 {
 				results = append(results, result{index, true})
 			} else {
-				fmt.Println("And it can be bought by diamond")
 				results = append(results, result{index, false})
 			}
 		}
@@ -154,18 +157,19 @@ func checkExist(img, pattern, coin image.Image) []result {
 }
 
 func main() {
-	fileCoin, _ := os.Open("coin.png")
+	fileCoin, _ := os.Open("coin1.png")
 	imgCoin, _ := png.Decode(fileCoin)
 
-	file1, _ := os.Open("3.png")
-	file2, _ := os.Open("casino.png")
+	file1, _ := os.Open(os.Args[1])
+	file2, _ := os.Open(os.Args[2])
 	defer file1.Close()
 	defer file2.Close()
 	img1, _ := png.Decode(file1)
 	img2, _ := png.Decode(file2)
 
-	// fmt.Println(findFirstValidPoint(img2))
-	// fmt.Println(calDiff(img1, img2, 0, 0))
-	// fmt.Println(completeMatch(img1, img2))
-	fmt.Println(checkExist(img1, img2, imgCoin))
+	results := checkExist(img1, img2, imgCoin)
+	for _, i := range results {
+		fmt.Printf("%v %v|", i.pos, i.isCoin)
+	}
+
 }
