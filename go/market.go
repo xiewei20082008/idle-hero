@@ -138,7 +138,8 @@ func checkExist(img, pattern, coin image.Image) []result {
 		for j, vj := range picY {
 			index++
 			similarity, _ := match(img, pattern, vi, vj, vi+picSizeX, vj+picSizeY)
-			if similarity >= 0.05 {
+			// fmt.Printf("index %v similarity is %v\n", index, similarity)
+			if similarity >= 0.08 {
 				continue
 			}
 			similarity, _ = match(img, coin, coinX[i], coinY[j], coinX[i]+coinSizeX, coinY[j]+coinSizeY)
