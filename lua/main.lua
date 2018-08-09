@@ -113,6 +113,9 @@ while true do
 		out = choose_to_buy(file_name, "scroll")
 		wLog("test", "scroll out is "..out)
 		buy_cycle(out, false)
+		out = choose_to_buy(file_name, "dust")
+		wLog("test", "dust out is "..out)
+		buy_cycle(out, false)
 		
 		
 		
