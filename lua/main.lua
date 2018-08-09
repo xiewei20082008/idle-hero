@@ -2,6 +2,22 @@ require "TSLib"
 --ver8.8
 market_click_pos = {{534,723}, {534,970},{824,723},{824,970},{1087,723},{1087,970},{1380,723},{1380,970}}
 
+function shell_run(cmd)
+    local handle = io.popen(cmd)
+    local result = handle:read("*a")
+    handle:close()
+    return result
+end
+
+function is_network_connected()
+    out = shell_run("ping -c 4 -i 0.2 www.baidu.com")
+    result = string.find( out,"bytes from" )
+    if result == nil then
+        return false
+    end
+    return true
+end
+
 function click(x, y)
 	touchDown(x, y)
 	mSleep(30)
