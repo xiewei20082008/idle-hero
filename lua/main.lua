@@ -1,5 +1,5 @@
 require "TSLib"
---ver8.8
+--ver8.9
 market_click_pos = {{534,723}, {534,970},{824,723},{824,970},{1087,723},{1087,970},{1380,723},{1380,970}}
 
 function shell_run(cmd)
@@ -132,6 +132,9 @@ while true do
 		out = choose_to_buy(file_name, "dust")
 		wLog("test", "dust out is "..out)
 		buy_cycle(out, false)
+		out = choose_to_buy(file_name, "tree")
+		wLog("test", "tree out is "..out)
+		buy_cycle(out, true)
 		
 		
 		
