@@ -64,97 +64,102 @@ function buy_cycle(s, always_buy)
 	end
 end
 
+function init_log()
+	initLog("test", 0);  
+	wLog("test","!! Start to run !!");
+	nLog("Start to run")
 
-initLog("test", 0);  
-wLog("test","!! Start to run !!");
-nLog("Start to run")
-
-app_name = "com.droidhang.ad"
-
-runApp(app_name);
-init(app_name,1);
-
-start_time = os.time()
-
-while true do
-	now_time = os.time()
-	diff_time = os.difftime(now_time,start_time)
-	pass_minutes = diff_time/60
-
-	if pass_minutes > 10 then
-		wLog("test", "stop main loop for pass_minutes is "..pass_minutes)
-		break
-	end
-
-	x,y = findMultiColorInRegionFuzzy( 0x7c2203, "22|-2|0x7c2203,10|8|0x7c2203,-1|20|0x7c2203,20|20|0x7c2203", 90, 1481, 157, 1553, 223)
-	if x~=-1 then
-		nLog("进去先点叉子")
-		click(x,y)
-	end
-
-	x,y = findMultiColorInRegionFuzzy( 0xf2f1ed, "25|-15|0xe5e1dc,22|15|0xe3e5e4,59|-19|0x8f5237,56|2|0x874e36", 90, 468, 97, 660, 293)
-	if x~=-1 then
-		nLog("然后进入游戏")
-		click(x,y)
-	end
-
-	x1,y1 = findMultiColorInRegionFuzzy( 0x1783f8, "-3|15|0x18f8fc,7|26|0x13d8f8,33|8|0x48261e,34|21|0x48261e", 90, 949, 10, 1057, 93)
-	x2,y2 = findMultiColorInRegionFuzzy( 0xfee688, "-10|15|0xfdd86b,-3|42|0xbd7212,32|19|0xfcd564,50|48|0xa75a06", 90, 6, 14, 120, 91)
-	if x1~=-1 and x2==-1 then
-		wLog("test","主界面要左移");
-		moveTo(545,600,1212,630)
-		mSleep(1000)
-		click(723,910)
-	elseif x1~=-1 and x2~=-1 then
-
-		wLog("test","尝试购买")
-		current_time = os.date("%m-%d-%H-%M-%S", os.time()); --以时间戳命名进行截图
-		file_name = "/sdcard/log/"..current_time..".png"
-		wLog("test","init pic"..file_name)
-		os.execute("screencap -p "..file_name)
-		mSleep(8000)
-		nLog("after screen shot")
-		out = choose_to_buy(file_name, "arena")
-		wLog("test", "arena out is "..out)
-		buy_cycle(out, true)
-		out = choose_to_buy(file_name, "casino")
-		wLog("test", "casino out is "..out)
-		buy_cycle(out, true)
-		out = choose_to_buy(file_name, "hero")
-		wLog("test", "hero out is "..out)
-		buy_cycle(out, false)
-		out = choose_to_buy(file_name, "task")
-		wLog("test", "task out is "..out)
-		buy_cycle(out, false)
-		out = choose_to_buy(file_name, "scroll")
-		wLog("test", "scroll out is "..out)
-		buy_cycle(out, false)
-		out = choose_to_buy(file_name, "dust")
-		wLog("test", "dust out is "..out)
-		buy_cycle(out, false)
-		out = choose_to_buy(file_name, "tree")
-		wLog("test", "tree out is "..out)
-		buy_cycle(out, true)
+end
 
 
+function do_store()
 
-		wLog("test","判断是否可以刷新or购买");
+	while true do
 
-		x,y = findMultiColorInRegionFuzzy( 0x92df19, "15|3|0x90de19,89|5|0x206b01,103|9|0x1d6700,105|23|0x1e6700,102|22|0x6cb912,133|1|0x206a01,139|9|0x86d518,150|14|0x1d6700", 90, 1300, 348, 1612, 454)
+		diff_time = os.difftime(now_time,start_time)
+		pass_minutes = diff_time/60
+
+		if pass_minutes > 10 then
+			wLog("test", "stop main loop for pass_minutes is "..pass_minutes)
+			break
+		end
+
+		x,y = findMultiColorInRegionFuzzy( 0x7c2203, "22|-2|0x7c2203,10|8|0x7c2203,-1|20|0x7c2203,20|20|0x7c2203", 90, 1481, 157, 1553, 223)
 		if x~=-1 then
-			wLog("test","可以刷新");
-			click(1454, 403)
-			mSleep(3000)
+			nLog("进去先点叉子")
+			click(x,y)
+		end
+
+		x,y = findMultiColorInRegionFuzzy( 0xf2f1ed, "25|-15|0xe5e1dc,22|15|0xe3e5e4,59|-19|0x8f5237,56|2|0x874e36", 90, 468, 97, 660, 293)
+		if x~=-1 then
+			nLog("然后进入游戏")
+			click(x,y)
+		end
+
+		x1,y1 = findMultiColorInRegionFuzzy( 0x1783f8, "-3|15|0x18f8fc,7|26|0x13d8f8,33|8|0x48261e,34|21|0x48261e", 90, 949, 10, 1057, 93)
+		x2,y2 = findMultiColorInRegionFuzzy( 0xfee688, "-10|15|0xfdd86b,-3|42|0xbd7212,32|19|0xfcd564,50|48|0xa75a06", 90, 6, 14, 120, 91)
+		if x1~=-1 and x2==-1 then
+			wLog("test","主界面要左移");
+			moveTo(545,600,1212,630)
+			mSleep(1000)
+			click(723,910)
+		elseif x1~=-1 and x2~=-1 then
+
+			wLog("test","尝试购买")
 			current_time = os.date("%m-%d-%H-%M-%S", os.time()); --以时间戳命名进行截图
 			file_name = "/sdcard/log/"..current_time..".png"
-			wLog("test","after decision pic"..file_name)
+			wLog("test","init pic"..file_name)
 			os.execute("screencap -p "..file_name)
-		end
-		break
-	end
+			mSleep(8000)
+			nLog("after screen shot")
+			out = choose_to_buy(file_name, "arena")
+			wLog("test", "arena out is "..out)
+			buy_cycle(out, true)
+			out = choose_to_buy(file_name, "casino")
+			wLog("test", "casino out is "..out)
+			buy_cycle(out, true)
+			out = choose_to_buy(file_name, "hero")
+			wLog("test", "hero out is "..out)
+			buy_cycle(out, false)
+			out = choose_to_buy(file_name, "task")
+			wLog("test", "task out is "..out)
+			buy_cycle(out, false)
+			out = choose_to_buy(file_name, "scroll")
+			wLog("test", "scroll out is "..out)
+			buy_cycle(out, false)
+			out = choose_to_buy(file_name, "dust")
+			wLog("test", "dust out is "..out)
+			buy_cycle(out, false)
+			out = choose_to_buy(file_name, "tree")
+			wLog("test", "tree out is "..out)
+			buy_cycle(out, true)
 
-	mSleep(2000)
+			wLog("test","判断是否可以刷新or购买");
+
+			x,y = findMultiColorInRegionFuzzy( 0x92df19, "15|3|0x90de19,89|5|0x206b01,103|9|0x1d6700,105|23|0x1e6700,102|22|0x6cb912,133|1|0x206a01,139|9|0x86d518,150|14|0x1d6700", 90, 1300, 348, 1612, 454)
+			if x~=-1 then
+				wLog("test","可以刷新");
+				click(1454, 403)
+				mSleep(3000)
+				current_time = os.date("%m-%d-%H-%M-%S", os.time()); --以时间戳命名进行截图
+				file_name = "/sdcard/log/"..current_time..".png"
+				wLog("test","after decision pic"..file_name)
+				os.execute("screencap -p "..file_name)
+			end
+
+			break
+		end
+
+		mSleep(2000)
+	end
 end
+
+app_name = "com.droidhang.ad"
+runApp(app_name);
+init(app_name,1);
+start_time = os.time()
+
+
 mSleep(10000)
 closeLog("test"); 
 closeApp("com.droidhang.ad")
