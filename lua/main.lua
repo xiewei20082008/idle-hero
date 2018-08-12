@@ -1,6 +1,7 @@
 require "TSLib"
 --ver8.9
 market_click_pos = {{534,723}, {534,970},{824,723},{824,970},{1087,723},{1087,970},{1380,723},{1380,970}}
+app_name = "com.droidhang.ad"
 
 function shell_run(cmd)
 	local handle = io.popen(cmd)
@@ -68,19 +69,26 @@ function init_log()
 	initLog("test", 0);  
 	wLog("test","!! Start to run !!");
 	nLog("Start to run")
-
 end
 
+function timeout(start_time, gap)
+	now_time = os.time()
+	diff_time = os.difftime(now_time,start_time)
+	pass_minutes = diff_time/60
 
-function do_store()
+	if pass_minutes > gap then
+		wLog("test", "stop main loop for pass_minutes is "..pass_minutes)
+		return true
+	end
+	return false
+end
 
+function run_store()
+	start_time = os.time()
 	while true do
 
-		diff_time = os.difftime(now_time,start_time)
-		pass_minutes = diff_time/60
-
-		if pass_minutes > 10 then
-			wLog("test", "stop main loop for pass_minutes is "..pass_minutes)
+		if timeout(start_time, 10) then
+			wLog("test","run store timeout")
 			break
 		end
 
@@ -154,11 +162,10 @@ function do_store()
 	end
 end
 
-app_name = "com.droidhang.ad"
 runApp(app_name);
 init(app_name,1);
-start_time = os.time()
 
+run_store()
 
 mSleep(10000)
 closeLog("test"); 
