@@ -83,13 +83,16 @@ function timeout(start_time, gap)
 	return false
 end
 
-function run_store()
+function back_mainpage()
+end
+
+function enter_game()
 	start_time = os.time()
 	while true do
 
-		if timeout(start_time, 10) then
+		if timeout(start_time, 3) then
 			wLog("test","run store timeout")
-			break
+			return false
 		end
 
 		x,y = findMultiColorInRegionFuzzy( 0x7c2203, "22|-2|0x7c2203,10|8|0x7c2203,-1|20|0x7c2203,20|20|0x7c2203", 90, 1481, 157, 1553, 223)
@@ -102,6 +105,17 @@ function run_store()
 		if x~=-1 then
 			nLog("然后进入游戏")
 			click(x,y)
+		end
+	end
+end
+
+
+function run_store()
+	start_time = os.time()
+	while true do
+		if timeout(start_time, 2) then
+			wLog("test","run store timeout")
+			return false
 		end
 
 		x1,y1 = findMultiColorInRegionFuzzy( 0x1783f8, "-3|15|0x18f8fc,7|26|0x13d8f8,33|8|0x48261e,34|21|0x48261e", 90, 949, 10, 1057, 93)
@@ -160,15 +174,39 @@ function run_store()
 
 		mSleep(2000)
 	end
+	return true
 end
 
-runApp(app_name);
-init(app_name,1);
+function restartApp()
+	closeApp("com.droidhang.ad")
+	mSleep(5000)
+	runApp(app_name);
+	init(app_name,1);
+end
 
-run_store()
 
-mSleep(10000)
+init_log()
+
+while true do
+	runApp(app_name);
+	init(app_name,1);
+
+	rc = enter_game()
+	if rc==false then
+		goto post_run
+	end
+	back_mainpage()
+
+	rc = run_store()
+	if rc==false then
+		goto post_run
+	end
+
+	::post_run::
+	mSleep(10000)
+	closeApp("com.droidhang.ad")
+end
+
 closeLog("test"); 
-closeApp("com.droidhang.ad")
 lockDevice(); 
 lua_exit();
