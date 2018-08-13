@@ -58,9 +58,7 @@ function buy_cycle(s, always_buy)
 			x = market_click_pos[pos+1][1]
 			y = market_click_pos[pos+1][2]
 			wLog("test", "will click at "..x.."and "..y)
-			click(x,y)
-			try_click_confirm()
-			mSleep(5000)
+			return x,y
 		end		
 	end
 end
