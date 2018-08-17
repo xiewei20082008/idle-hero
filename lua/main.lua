@@ -185,7 +185,7 @@ function run_store()
 		elseif x1~=-1 and x2~=-1 then
 
 			wLog("test","尝试购买")
-			current_time = os.date("%m-%d-%H-%M-%S", os.time()); --以时间戳命名进行截图
+			current_time = os.date("%m-%d-%H:%M:%S", os.time()); --以时间戳命名进行截图
 			file_name = "/sdcard/log/"..current_time..".png"
 			wLog("test","init pic"..file_name)
 			os.execute("screencap -p "..file_name)
