@@ -81,7 +81,7 @@ func calDiff(img, pattern image.Image, x, y int) (float64, error) {
 	return float64(sum) / (float64(validPointNum) * 3.0 * 255.0), nil
 }
 
-func match(img, pattern image.Image, x1, y1, x2, y2 int) (float64, error) {
+func match(img, pattern image.Image, x1, y1, x2, y2 int) (float64, int, int) {
 	patternDx := pattern.Bounds().Dx()
 	patternDy := pattern.Bounds().Dy()
 	imgDx := x2
@@ -97,7 +97,7 @@ func match(img, pattern image.Image, x1, y1, x2, y2 int) (float64, error) {
 			}
 			diffNow, _ := calDiff(img, pattern, i, j)
 			if diffNow < 0.05 {
-				return diffNow, nil
+				return diffNow, i, j
 			}
 			if diffNow < diff {
 				targetX, targetY = i, j
@@ -108,10 +108,10 @@ func match(img, pattern image.Image, x1, y1, x2, y2 int) (float64, error) {
 	if DEBUG {
 		fmt.Printf("match at %v, %v\n", targetX, targetY)
 	}
-	return diff, nil
+	return diff, targetX, targetY
 }
 
-func completeMatch(img, pattern image.Image) (float64, error) {
+func completeMatch(img, pattern image.Image) (float64, int, int) {
 	imgDx := img.Bounds().Dx()
 	imgDy := img.Bounds().Dy()
 	return match(img, pattern, 0, 0, imgDx, imgDy)
@@ -137,12 +137,12 @@ func checkExist(img, pattern, coin image.Image) []result {
 	for i, vi := range picX {
 		for j, vj := range picY {
 			index++
-			similarity, _ := match(img, pattern, vi, vj, vi+picSizeX, vj+picSizeY)
+			similarity, _, _ := match(img, pattern, vi, vj, vi+picSizeX, vj+picSizeY)
 			// fmt.Printf("index %v similarity is %v\n", index, similarity)
 			if similarity >= 0.08 {
 				continue
 			}
-			similarity, _ = match(img, coin, coinX[i], coinY[j], coinX[i]+coinSizeX, coinY[j]+coinSizeY)
+			similarity, _, _ = match(img, coin, coinX[i], coinY[j], coinX[i]+coinSizeX, coinY[j]+coinSizeY)
 			if DEBUG {
 				fmt.Printf("Find pattern in position %v\n", index)
 				fmt.Printf("Coin similarity is %v\n", similarity)
