@@ -12,7 +12,7 @@ app_name = "com.droidhang.ad"
 times=0
 while true do
 
-	x,y = findMultiColorInRegionFuzzy( 0x8c331e, "15|2|0x596789,24|14|0x348992,30|26|0xfdbc08,55|22|0xd7d9d5,38|54|0x33868e,48|78|0xeda803,85|45|0xb8b998", 90, 466, 863, 634, 1022)
+	x,y = findMultiColorInRegionFuzzy( 0x4a5672, "19|15|0x7e7210,15|-14|0xfee2b1,29|-7|0xd9dddc,42|-23|0xc6c1b7,27|-35|0x368d96", 90, 450, 881, 590, 1008)
 	if x~=-1 then
 		nLog("进游戏")
 		click(x,y)
