@@ -83,13 +83,41 @@ function timeout(start_time, gap)
 	return false
 end
 
-function run_store()
+function is_mainpage()
+	x,y = findMultiColorInRegionFuzzy( 0xeca17c, "12|3|0x7e2f14,13|20|0xdc7a4d,30|6|0x7e2e13,43|24|0xdc7b4e,47|5|0x7d2b12", 90, 1767, 13, 1902, 83)
+	if x~=-1 then
+		click(x,y)
+		mSleep(1500)
+	end
+	x,y = findMultiColorInRegionFuzzy( 0xfee281, "2|14|0xa95906,9|-3|0xfee78a,14|11|0xaf5709,33|-2|0xfee98e,34|12|0xa85806", 90, 1767, 13, 1902, 83)
+	if x~=-1 then
+		return true
+	end
+	return false
+end
+
+
+function back_mainpage()
+	start_time = os.time()
+	while is_mainpage()==false do
+		if timeout(start_time, 1) then
+			wLog("test","back mainpage timeout")
+			return false
+		end
+		os.execute("input keyevent 4")
+		mSleep(3000)
+	end
+	nLog("mainpage")
+	return true
+end
+
+function enter_game()
 	start_time = os.time()
 	while true do
 
-		if timeout(start_time, 10) then
+		if timeout(start_time, 3) then
 			wLog("test","run store timeout")
-			break
+			return false
 		end
 
 		x,y = findMultiColorInRegionFuzzy( 0x7c2203, "22|-2|0x7c2203,10|8|0x7c2203,-1|20|0x7c2203,20|20|0x7c2203", 90, 1481, 157, 1553, 223)
@@ -102,6 +130,49 @@ function run_store()
 		if x~=-1 then
 			nLog("然后进入游戏")
 			click(x,y)
+		end
+
+		if is_mainpage() then
+			return true
+		end
+		mSleep(2000)
+	end
+end
+
+function move_to_left()
+	moveTo(545,600,1212,630)
+	mSleep(2000)
+end
+
+function get_exp()
+	start_time = os.time()
+	while true do
+
+		if timeout(start_time, 1) then
+			wLog("test","get exp timeout")
+			return false
+		end
+		move_to_left()
+		click(1914,533)
+
+		x,y = findMultiColorInRegionFuzzy( 0xbfec7c, "2|-3|0xfdfdfe,15|-1|0x49941b,22|1|0x116d22,12|26|0xfabe12,42|4|0x48261e", 90, 953, 22, 1030, 101)
+		if x~=-1 then
+			click(1691,204)
+			mSleep(2000)
+			nLog("get exp")
+			return true
+		end
+		mSleep(2000)
+	end
+end
+
+
+function run_store()
+	start_time = os.time()
+	while true do
+		if timeout(start_time, 3) then
+			wLog("test","run store timeout")
+			return false
 		end
 
 		x1,y1 = findMultiColorInRegionFuzzy( 0x1783f8, "-3|15|0x18f8fc,7|26|0x13d8f8,33|8|0x48261e,34|21|0x48261e", 90, 949, 10, 1057, 93)
@@ -160,15 +231,55 @@ function run_store()
 
 		mSleep(2000)
 	end
+	return true
 end
 
-runApp(app_name);
-init(app_name,1);
+function restartApp()
+	closeApp("com.droidhang.ad")
+	mSleep(5000)
+	runApp(app_name);
+	init(app_name,1);
+end
 
-run_store()
 
-mSleep(10000)
-closeLog("test"); 
+
+
+init_log()
+
+while true do
+	runApp(app_name);
+	init(app_name,1);
+
+	rc = enter_game()
+	if rc==false then
+		goto post_run
+	end
+
+	rc = get_exp()
+	if rc==false then
+		goto post_run
+	end
+	rc = back_mainpage()
+	if rc==false then
+		goto post_run
+	end
+
+	rc = run_store()
+	if rc==false then
+		goto post_run
+	end
+
+	break
+	::post_run::
+	mSleep(10000)
+	closeApp("com.droidhang.ad")
+end
+
 closeApp("com.droidhang.ad")
+closeLog("test"); 
 lockDevice(); 
 lua_exit();
+
+--init(app_name,1);
+
+--back_mainpage()
