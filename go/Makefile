@@ -1,2 +1,2 @@
-market.bin:
-	env GOOS=linux GOARCH=arm64 go build -o market.bin market/market.go
+market:
+	env GOOS=linux GOARCH=arm64 go build market.go
