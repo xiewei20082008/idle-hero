@@ -1,3 +1,5 @@
+require "TSLib"
+app_name = "com.droidhang.ad"
 
 function shell_run(cmd)
 	local handle = io.popen(cmd)
@@ -19,6 +21,11 @@ function click(x, y)
 	touchDown(x, y)
 	mSleep(30)
 	touchUp(x, y)
+end
+
+function move_to_left()
+	moveTo(545,600,1212,630)
+	mSleep(2000)
 end
 
 function is_mainpage()
@@ -48,19 +55,20 @@ end
 
 function get_exp()
 	start_time = os.time()
+	move_to_left()
+	click(1914,533)
+	mSleep(1500)
 	while true do
 
 		if timeout(start_time, 1) then
 			wLog("test","get exp timeout")
 			return false
 		end
-		move_to_left()
-		click(1914,533)
+
 
 		x,y = findMultiColorInRegionFuzzy( 0xbfec7c, "2|-3|0xfdfdfe,15|-1|0x49941b,22|1|0x116d22,12|26|0xfabe12,42|4|0x48261e", 90, 953, 22, 1030, 101)
 		if x~=-1 then
 			click(1691,204)
-			mSleep(2000)
 			nLog("get exp")
 			return true
 		end

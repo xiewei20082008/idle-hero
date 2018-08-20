@@ -1,5 +1,7 @@
 [res]
 [lib]
 [file]
+helper.lua
+find_marauder.lua
 watch_ad.lua
 main.lua
