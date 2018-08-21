@@ -53,6 +53,7 @@ func checkExist(img, pattern, coin image.Image) []result {
 
 func main() {
 	fileCoin, _ := os.Open("/sdcard/go/coin1.png")
+	defer fileCoin.Close()
 	imgCoin, _ := png.Decode(fileCoin)
 
 	file1, _ := os.Open(os.Args[1])

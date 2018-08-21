@@ -94,7 +94,7 @@ func Match(img, pattern image.Image, x1, y1, x2, y2 int) (float64, int, int) {
 				continue
 			}
 			diffNow, _ := calDiff(img, pattern, i, j)
-			if diffNow < 0.05 {
+			if diffNow < 0.08 {
 				return diffNow, i, j
 			}
 			if diffNow < diff {
