@@ -1,7 +1,7 @@
 require("helper")
 
 
-account_num = 2001
+account_num = 1990
 
 function get_username()
 	return "tianshi"..account_num.."@163.com"
@@ -45,21 +45,48 @@ function change_account()
 	end
 end
 
+function add_me_as_friend()
+--	点放大镜
+	click(1600,484)
+	mSleep(2000)
+	switchTSInputMethod(true)
+--	点输入框
+	click(565,259)
+	mSleep(500)
+	inputText("31648178")
+	mSleep(800)
+	switchTSInputMethod(false)
+	click(1271,265)
+	mSleep(800)
+end
+
 function find_marauder()
 
 	-- click friend icon
 	click(64,668)
-	mSleep(1000)
+	mSleep(2000)
 	-- click friend tab
 	click(1596,833)
-	mSleep(1000)
+	mSleep(5000)
+	x,y = findMultiColorInRegionFuzzy( 0xf6c951, "5|2|0x763e07,7|5|0xefc34d,9|12|0x733b05,4|17|0xf6c951,13|13|0xf6c951,21|6|0x743d06,49|9|0xf6c951,45|17|0x753c06", 90, 890, 860, 971, 898)
+	if x~=-1 then
+		add_me_as_friend()
+		return
+	end
 	-- click search
 	click(970,872)
+
 	-- if find 确定
 	-- screencap
 	-- break
 
+	mSleep(5000)
+	os.execute("input keyevent 4")
 	mSleep(2000)
+	x,y = findMultiColorInRegionFuzzy( 0xf6c951, "5|2|0x763e07,7|5|0xefc34d,9|12|0x733b05,4|17|0xf6c951,13|13|0xf6c951,21|6|0x743d06,49|9|0xf6c951,45|17|0x753c06", 90, 890, 860, 971, 898)
+	if x~=-1 then
+		add_me_as_friend()
+	end
 
 end
 
