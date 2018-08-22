@@ -161,7 +161,25 @@ function restartApp()
 	init(app_name,1);
 end
 
-
+function get_mill_request()
+	click(1336,992)
+	mSleep(4000)
+	click(466,940)
+	mSleep(4000)
+	click(403,404)
+	mSleep(4000)
+	for i = 10,1,-1 
+	do
+		click(1378,260)
+		mSleep(500)
+	end
+	x,y = findMultiColorInRegionFuzzy( 0xa66f54, "4|0|0xe6cfad,9|4|0xd8be9d,11|4|0xa47054,6|17|0xe6d0ae,9|20|0x9d664a,49|9|0xd8bf9f,52|8|0x744d35", 90, 909, 75, 1014, 129)
+	if x~=-1 then
+		click(1378,260)
+		return true
+	end
+	return false
+end
 
 
 init_log()
@@ -175,6 +193,26 @@ while true do
 		goto post_run
 	end
 
+	rc = run_store()
+	if rc==false then
+		goto post_run
+	end
+	rc = back_mainpage()
+	if rc==false then
+		goto post_run
+	end
+
+	rc = get_mill_request()
+	if rc==false then
+		goto post_run
+	end
+	rc = back_mainpage()
+	if rc==false then
+		goto post_run
+	end
+
+
+
 	rc = get_exp()
 	if rc==false then
 		goto post_run
@@ -184,10 +222,7 @@ while true do
 		goto post_run
 	end
 
-	rc = run_store()
-	if rc==false then
-		goto post_run
-	end
+
 
 	break
 	::post_run::

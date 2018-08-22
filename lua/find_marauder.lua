@@ -1,9 +1,13 @@
 require("helper")
 
 
-account_num = 1990
+account_num = 1989
 
 function get_username()
+	if account_num == 1989 then
+		account_num = account_num + 1
+		return "xiewei.fire@gmail.com"
+	end
 	return "tianshi"..account_num.."@163.com"
 end
 
@@ -46,11 +50,11 @@ function change_account()
 end
 
 function add_me_as_friend()
---	点放大镜
+	--	点放大镜
 	click(1600,484)
 	mSleep(2000)
 	switchTSInputMethod(true)
---	点输入框
+	--	点输入框
 	click(565,259)
 	mSleep(500)
 	inputText("31648178")
@@ -67,7 +71,13 @@ function find_marauder()
 	mSleep(2000)
 	-- click friend tab
 	click(1596,833)
-	mSleep(5000)
+	mSleep(4000)
+
+	x,y = findMultiColorInRegionFuzzy( 0xaaaaaa, "2|0|0x4d4d4d,6|8|0xc1c1c1,9|8|0x474747,19|17|0xb9b9b9,22|17|0x474747,45|13|0x9b9b9b,45|15|0x464646", 90, 920, 857, 1009, 898)
+	if x~=-1 then
+		return
+	end
+
 	x,y = findMultiColorInRegionFuzzy( 0xf6c951, "5|2|0x763e07,7|5|0xefc34d,9|12|0x733b05,4|17|0xf6c951,13|13|0xf6c951,21|6|0x743d06,49|9|0xf6c951,45|17|0x753c06", 90, 890, 860, 971, 898)
 	if x~=-1 then
 		add_me_as_friend()
@@ -103,10 +113,11 @@ function main()
 		back_mainpage()
 		find_marauder()
 		back_mainpage()
-		account_num = account_num + 1
-		if account_num== 2019 then
+		if account_num== 2026 then
 			break
 		end
+		account_num = account_num + 1
+
 	end
 end
 
