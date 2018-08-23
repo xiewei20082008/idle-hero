@@ -123,9 +123,8 @@ function run_store()
 			out = choose_to_buy(file_name, "task")
 			wLog("test", "task out is "..out)
 			buy_cycle(out, false)
-			out = choose_to_buy(file_name, "scroll")
-			wLog("test", "scroll out is "..out)
-			buy_cycle(out, false)
+
+
 			out = choose_to_buy(file_name, "dust")
 			wLog("test", "dust out is "..out)
 			buy_cycle(out, false)
@@ -140,11 +139,12 @@ function run_store()
 				wLog("test","可以刷新");
 				click(1454, 403)
 				mSleep(3000)
-				current_time = os.date("%m-%d-%H-%M-%S", os.time()); --以时间戳命名进行截图
-				file_name = "/sdcard/log/"..current_time..".png"
-				wLog("test","after decision pic"..file_name)
-				os.execute("screencap -p "..file_name)
 			end
+
+			current_time = os.date("%m-%d-%H-%M-%S", os.time()); --以时间戳命名进行截图
+			file_name = "/sdcard/log/"..current_time..".png"
+			wLog("test","after decision pic"..file_name)
+			os.execute("screencap -p "..file_name)
 
 			break
 		end

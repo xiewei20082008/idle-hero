@@ -84,7 +84,7 @@ function back_mainpage()
 			return false
 		end
 		os.execute("input keyevent 4")
-		mSleep(3000)
+		mSleep(2000)
 	end
 	nLog("mainpage")
 	return true
