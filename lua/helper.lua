@@ -23,6 +23,11 @@ function click(x, y)
 	touchUp(x, y)
 end
 
+function move_to_top()
+	moveTo(545,300,545,800)
+	mSleep(2000)
+end
+
 function move_to_left()
 	moveTo(545,600,1212,630)
 	mSleep(2000)
@@ -53,6 +58,8 @@ function timeout(start_time, gap)
 	return false
 end
 
+
+
 function get_exp()
 	start_time = os.time()
 	move_to_left()
@@ -64,7 +71,6 @@ function get_exp()
 			wLog("test","get exp timeout")
 			return false
 		end
-
 
 		x,y = findMultiColorInRegionFuzzy( 0xbfec7c, "2|-3|0xfdfdfe,15|-1|0x49941b,22|1|0x116d22,12|26|0xfabe12,42|4|0x48261e", 90, 953, 22, 1030, 101)
 		if x~=-1 then

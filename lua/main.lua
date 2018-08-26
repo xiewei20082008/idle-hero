@@ -233,6 +233,61 @@ function get_mill_request()
 	return false
 end
 
+function open_a_box()
+	points = findMultiColorInRegionFuzzyExt(0x9e4833,"23|-21|0x5a1d2e,10|1|0xe17d1f", 100, 0, 0, 1920, 1080,  { main = 0x050505, list = 0x050505 } )
+	if #points~=0 then
+		nLog("click "..points[1].x..","..points[2].y)
+		click(points[1].x,points[1].y)
+		mSleep(8000)
+		os.execute("input keyevent 4")
+		mSleep(4000)
+		return true
+	else
+		return false
+	end
+
+end
+
+function open_box()
+	
+	nLog("start to open box")
+	move_to_left()
+
+--	点悬空岛
+	click(1340,240)
+	mSleep(4000)
+--	点飞艇
+	click(560,820)
+	mSleep(6000)
+	start_time = os.time()
+	while true do
+		if timeout(start_time, 2) then
+			wLog("test","run store timeout")
+			return false
+		end
+		rc = open_a_box()
+		if rc==false then
+			break
+		end
+		mSleep(2000)
+	end
+	
+	move_to_top()
+	start_time = os.time()
+	while true do
+		if timeout(start_time, 2) then
+			wLog("test","run store timeout")
+			return false
+		end
+		rc = open_a_box()
+		if rc==false then
+			break
+		end
+		mSleep(2000)
+	end
+	return true
+end
+
 function search_treasure()
 	-- click friend icon
 	click(64,668)
@@ -253,6 +308,10 @@ init_log()
 while true do
 	runApp(app_name);
 	init(app_name,1);
+	
+
+	
+
 
 	rc = enter_game()
 	if rc==false then
@@ -302,6 +361,11 @@ while true do
 		goto post_run
 	end
 	rc = back_mainpage()
+	if rc==false then
+		goto post_run
+	end
+	
+	rc = open_box()
 	if rc==false then
 		goto post_run
 	end
