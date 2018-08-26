@@ -141,7 +141,7 @@ function run_store()
 				mSleep(3000)
 			end
 
-			current_time = os.date("%m-%d-%H-%M-%S", os.time()); --以时间戳命名进行截图
+			current_time = os.date("%m-%d-%H:%M:%S", os.time()); --以时间戳命名进行截图
 			file_name = "/sdcard/log/"..current_time..".png"
 			wLog("test","after decision pic"..file_name)
 			os.execute("screencap -p "..file_name)
@@ -173,6 +173,7 @@ function guild_boss()
 	mSleep(4000)
 	x,y = findMultiColorInRegionFuzzy( 0xfdfbf9, "-14|1|0x6b73ae,-18|22|0x38407a,-33|28|0xf9dc10,26|28|0xf9dc10,21|-10|0xaeb2d1", 90, 313, 239, 1594, 890)
 	if x~=-1 then
+--		点击选BOSS的匕首
 		click(x,y)
 		mSleep(4000)
 	else
@@ -181,8 +182,24 @@ function guild_boss()
 
 	x,y = findMultiColorInRegionFuzzy( 0xf17032, "4|4|0x62352a,10|17|0x62352a,17|12|0xf27333,21|-1|0x61342a,33|6|0xf27233,46|14|0x61342a", 90, 417, 840, 542, 913)
 	if x~=-1 then
---		click(x,y)
+--		点击战斗文字
+		click(x,y)
 		mSleep(4000)
+--		点击匕首开始打
+		click(1500,440)
+		mSleep(4000)
+	else
+		return true
+	end
+
+	x,y = findMultiColorInRegionFuzzy( 0x85513a, "8|-1|0xffea91,8|25|0xfbc546,27|25|0x85513a,35|22|0xfbc84a,43|0|0xffeb93,51|0|0x85513a", 90, 1794, 10, 1898, 82)
+	if x~=-1 then
+--		点击跳过图标
+		click(x,y)
+		mSleep(3000)
+--		点击确定
+		click(1130,700)
+		mSleep(3000)
 	else
 		return false
 	end
@@ -196,7 +213,7 @@ function get_mill_request()
 --	点击领地
 	click(466,940)
 	mSleep(4000)
---	点击磨坊
+	--	点击磨坊
 	click(403,404)
 	mSleep(4000)
 	for i = 10,1,-1 
@@ -242,10 +259,7 @@ while true do
 		goto post_run
 	end
 
---	rc = guild_boss()
-	--	if rc==false then
-	--		goto post_run
-	--	end
+
 
 	rc = run_store()
 	if rc==false then
@@ -283,10 +297,20 @@ while true do
 		goto post_run
 	end
 
+	rc = guild_boss()
+	if rc==false then
+		goto post_run
+	end
+	rc = back_mainpage()
+	if rc==false then
+		goto post_run
+	end
+
 	break
 	::post_run::
-	mSleep(10000)
+
 	closeApp("com.droidhang.ad")
+	mSleep(10000)
 end
 
 closeApp("com.droidhang.ad")
