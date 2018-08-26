@@ -161,11 +161,42 @@ function restartApp()
 	init(app_name,1);
 end
 
-function get_mill_request()
+function guild_boss()
+--	点击公会
 	click(1336,992)
 	mSleep(4000)
+--	点击领地
 	click(466,940)
 	mSleep(4000)
+--	点击副本
+	click(950,331)
+	mSleep(4000)
+	x,y = findMultiColorInRegionFuzzy( 0xfdfbf9, "-14|1|0x6b73ae,-18|22|0x38407a,-33|28|0xf9dc10,26|28|0xf9dc10,21|-10|0xaeb2d1", 90, 313, 239, 1594, 890)
+	if x~=-1 then
+		click(x,y)
+		mSleep(4000)
+	else
+		return false
+	end
+
+	x,y = findMultiColorInRegionFuzzy( 0xf17032, "4|4|0x62352a,10|17|0x62352a,17|12|0xf27333,21|-1|0x61342a,33|6|0xf27233,46|14|0x61342a", 90, 417, 840, 542, 913)
+	if x~=-1 then
+--		click(x,y)
+		mSleep(4000)
+	else
+		return false
+	end
+	return true
+end
+
+function get_mill_request()
+--	点击公会
+	click(1336,992)
+	mSleep(4000)
+--	点击领地
+	click(466,940)
+	mSleep(4000)
+--	点击磨坊
 	click(403,404)
 	mSleep(4000)
 	for i = 10,1,-1 
@@ -185,6 +216,20 @@ function get_mill_request()
 	return false
 end
 
+function search_treasure()
+	-- click friend icon
+	click(64,668)
+	mSleep(2000)
+	-- click friend tab
+	click(1596,833)
+	mSleep(2000)
+
+	-- click search
+	click(970,872)
+	mSleep(1000)
+
+	return true
+end
 
 init_log()
 
@@ -196,6 +241,11 @@ while true do
 	if rc==false then
 		goto post_run
 	end
+
+--	rc = guild_boss()
+	--	if rc==false then
+	--		goto post_run
+	--	end
 
 	rc = run_store()
 	if rc==false then
@@ -215,8 +265,6 @@ while true do
 		goto post_run
 	end
 
-
-
 	rc = get_exp()
 	if rc==false then
 		goto post_run
@@ -226,7 +274,14 @@ while true do
 		goto post_run
 	end
 
-
+	rc = search_treasure()
+	if rc==false then
+		goto post_run
+	end
+	rc = back_mainpage()
+	if rc==false then
+		goto post_run
+	end
 
 	break
 	::post_run::
