@@ -132,6 +132,13 @@ function run_store()
 			wLog("test", "tree out is "..out)
 			buy_cycle(out, true)
 
+			out = choose_to_buy(file_name, "vip_casino")
+			wLog("test", "vip_casino out is "..out)
+			buy_cycle(out, true)
+			out = choose_to_buy(file_name, "orb")
+			wLog("test", "orb out is "..out)
+			buy_cycle(out, true)
+
 			wLog("test","判断是否可以刷新or购买");
 
 			x,y = findMultiColorInRegionFuzzy( 0x92df19, "15|3|0x90de19,89|5|0x206b01,103|9|0x1d6700,105|23|0x1e6700,102|22|0x6cb912,133|1|0x206a01,139|9|0x86d518,150|14|0x1d6700", 90, 1300, 348, 1612, 454)
