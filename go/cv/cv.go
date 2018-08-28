@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"image"
 	"image/color"
+	"image/draw"
 )
 
 var GAP = 16
@@ -46,6 +47,13 @@ func rgbaModel(c color.Color) (int, int, int, int) {
 	return (int)(r >> 8), (int)(g >> 8), (int)(b >> 8), (int)(a >> 8)
 }
 
+func CleanPixel(img image.Image, x, y int) {
+	r, g, b, _ := rgbaModel(img.At(x, y))
+
+	c := color.RGBA{uint8(r), uint8(g), uint8(b), uint8(0)}
+	img.(draw.Image).Set(x, y, c)
+}
+
 func isColorSame(c1 color.Color, c2 color.Color, gap int) bool {
 	r1, g1, b1, _ := rgbaModel(c1)
 	r2, g2, b2, _ := rgbaModel(c2)
@@ -53,6 +61,37 @@ func isColorSame(c1 color.Color, c2 color.Color, gap int) bool {
 		return true
 	}
 	return false
+}
+
+func isOverLadder(c1, c2 color.Color) bool {
+	return !isColorSame(c1, c2, 16)
+}
+
+func GetLadderDiff(img image.Image) ([][]bool, [][]bool) {
+	dx := img.Bounds().Dx()
+	dy := img.Bounds().Dy()
+
+	var ladder_1 [][]bool
+	var ladder_2 [][]bool
+
+	for i := 0; i < dx; i++ {
+		tmp := make([]bool, dy-1)
+		for j := 0; j < dy-1; j++ {
+			tmp[j] = isOverLadder(img.At(i, j), img.At(i, j+1))
+			// fmt.Printf("%v,%v to %v,%v ladder == %v", i, j, i, j+1, tmp[j])
+		}
+		ladder_1 = append(ladder_1, tmp)
+	}
+
+	for i := 0; i < dx-1; i++ {
+		tmp := make([]bool, dy)
+		for j := 0; j < dy; j++ {
+			tmp[j] = isOverLadder(img.At(i, j), img.At(i+1, j))
+			// fmt.Printf("%v,%v to %v,%v ladder == %v", i, j, i+1, j, tmp[j])
+		}
+		ladder_2 = append(ladder_2, tmp)
+	}
+	return ladder_1, ladder_2
 }
 
 func calDiff(img, pattern image.Image, x, y int) (float64, error) {
