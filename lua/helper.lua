@@ -95,3 +95,14 @@ function back_mainpage()
 	nLog("mainpage")
 	return true
 end
+
+function match(imgName,patternName,x1,y1,x2,y2)
+    output = shell_run("/data/go/match".." "..imgName.." "..patternName.." "..x1.." "..y1.." "..x2.." "..y2)
+    print(output)
+    for sim, x, y in string.gmatch( output,"(%S+),(%d+),(%d+)" ) do
+        sim = tonumber(sim)
+        print(sim)
+        print(x)
+        print(y)
+    end
+end

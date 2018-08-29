@@ -119,6 +119,10 @@ func calDiff(img, pattern image.Image, x, y int) (float64, error) {
 }
 
 func Match(img, pattern image.Image, x1, y1, x2, y2 int) (float64, int, int) {
+	return MatchWithOpt(img, pattern, x1, y1, x2, y2, 0.08)
+}
+
+func MatchWithOpt(img, pattern image.Image, x1, y1, x2, y2 int, opt float64) (float64, int, int) {
 	patternDx := pattern.Bounds().Dx()
 	patternDy := pattern.Bounds().Dy()
 	imgDx := x2
@@ -133,7 +137,7 @@ func Match(img, pattern image.Image, x1, y1, x2, y2 int) (float64, int, int) {
 				continue
 			}
 			diffNow, _ := calDiff(img, pattern, i, j)
-			if diffNow < 0.08 {
+			if diffNow <= opt {
 				return diffNow, i, j
 			}
 			if diffNow < diff {
