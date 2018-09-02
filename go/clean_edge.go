@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	file, _ := os.Open("/home/weix/tmp/1.png")
+	file, _ := os.Open(os.Args[1])
 	img, _ := png.Decode(file)
 	defer file.Close()
 
@@ -33,7 +33,7 @@ func main() {
 		}
 	}
 
-	f, err := os.Create("/sdcard/go/tmp.png")
+	f, err := os.Create("./tmp.png")
 	if err != nil {
 		log.Fatal(err)
 	}

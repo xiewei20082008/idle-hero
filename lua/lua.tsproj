@@ -1,6 +1,8 @@
 [res]
 [lib]
 [file]
+green.lua
+G:\weix\app\TS_Studio v1.2.3\idle-hero\lua\green.lua
 helper.lua
 find_marauder.lua
 watch_ad.lua
