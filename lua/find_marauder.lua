@@ -2,10 +2,11 @@ require("helper")
 
 
 account_num = 1989
+now_friend=0
+need_friend = 5
 
 function get_username()
 	if account_num == 1989 then
-		account_num = account_num + 1
 		return "xiewei.fire@gmail.com"
 	end
 	return "tianshi"..account_num.."@163.com"
@@ -50,6 +51,10 @@ function change_account()
 end
 
 function add_me_as_friend()
+	if now_friend == need_friend then
+		return
+	end
+	now_friend = now_friend + 1
 	--	点放大镜
 	click(1600,484)
 	mSleep(2000)
@@ -59,8 +64,20 @@ function add_me_as_friend()
 	mSleep(1500)
 	inputText("31648178")
 	mSleep(800)
-	switchTSInputMethod(false)
 	click(1271,265)
+
+	
+
+	click(565,259)
+	mSleep(1500)
+	for var = 1,12 do
+		inputText("\b")       --删除输入框中的文字（假设输入框中已存在文字）
+	end
+	inputText("16216808")
+	mSleep(800)
+	click(1271,265)
+
+	switchTSInputMethod(false)
 	mSleep(800)
 end
 
@@ -91,7 +108,7 @@ function find_marauder()
 	-- break
 
 	mSleep(4000)
-	
+
 	x,y = findMultiColorInRegionFuzzy( 0xf6c951, "5|2|0x763e07,7|5|0xefc34d,9|12|0x733b05,4|17|0xf6c951,13|13|0xf6c951,21|6|0x743d06,49|9|0xf6c951,45|17|0x753c06", 90, 890, 860, 971, 898)
 	if x~=-1 then
 		add_me_as_friend()
@@ -100,6 +117,7 @@ function find_marauder()
 end
 
 function main()
+
 	while true do
 		change_account()
 		while true do
