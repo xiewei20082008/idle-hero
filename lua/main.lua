@@ -60,7 +60,8 @@ function enter_game()
 	while true do
 
 		if timeout(start_time, 3) then
-			wLog("test","run store timeout")
+			wLog("test","run enter game timeout")
+			screencap("fail_enter_game")
 			return false
 		end
 
@@ -256,7 +257,7 @@ function open_a_box()
 end
 
 function open_box()
-	
+
 	nLog("start to open box")
 	move_to_left()
 
@@ -278,7 +279,7 @@ function open_box()
 		end
 		mSleep(2000)
 	end
-	
+
 	move_to_top()
 	start_time = os.time()
 	while true do
@@ -312,20 +313,26 @@ end
 
 init_log()
 
+wifi = 1
+
 while true do
 	runApp(app_name);
 	init(app_name,1);
-	
-
-	
-
 
 	rc = enter_game()
 	if rc==false then
+		if wifi ==1 then
+			wLog("test","关闭wifi")
+			setWifiEnable(false)
+			wifi = 0
+		else
+			wLog("test","开启wifi")
+			setWifiEnable(true)
+			wifi = 1
+		end
+
 		goto post_run
 	end
-
-
 
 	rc = run_store()
 	if rc==false then
@@ -363,7 +370,8 @@ while true do
 		goto post_run
 	end
 
-	rc = guild_boss()
+
+	rc = open_box()
 	if rc==false then
 		goto post_run
 	end
@@ -371,8 +379,8 @@ while true do
 	if rc==false then
 		goto post_run
 	end
-	
-	rc = open_box()
+
+	rc = guild_boss()
 	if rc==false then
 		goto post_run
 	end
