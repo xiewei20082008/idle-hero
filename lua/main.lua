@@ -389,7 +389,9 @@ while true do
 	::post_run::
 
 	closeApp("com.droidhang.ad")
-	mSleep(10000)
+	mSleep(4000)
+	os.execute("pkill droidhang")
+	mSleep(60000)
 end
 
 closeApp("com.droidhang.ad")
