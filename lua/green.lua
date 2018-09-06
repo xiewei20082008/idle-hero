@@ -1,5 +1,7 @@
 require "helper"
 app_name = "com.eg.android.AlipayGphone"
+closeApp(app_name)
+mSleep(6000)
 runApp(app_name)
 mSleep(3000)
 
@@ -27,20 +29,29 @@ function stolen()
 		sim, x, y = mymatch(file_name,"/sdcard/go/stole.png",10, 347, 1067, 1014)
 		if sim<=0.06 then
 			nLog("stole click at "..x..","..y)
+			wLog("test","stole click at "..x..","..y)
 			click(x,y)
 		else
 			os.execute("input keyevent 4")
 			break
 		end
-		
+
 		mSleep(4000)
 
 	end
 end
 
+function init_log()
+	initLog("test", 0);  
+	wLog("test","!! Start to run !!");
+	nLog("Start to run")
+end
+
+init_log()
+
 start_time = os.time()
 while true do
-	if timeout(start_time, 3) then
+	if timeout(start_time, 10) then
 		break
 	end
 
@@ -81,8 +92,9 @@ while true do
 	if isColor(478,1268,0xffffff,85) and isColor(478,1273,0x31bf6d,85) and isColor(479,1278,0xfefffe,85) and isColor(479,1282,0x37c170,85) and isColor(479,1286,0xf7fdf9,85) and isColor(479,1290,0x31bf6d,85) and isColor(493,1293,0xfefffe,85) and isColor(498,1293,0x31bf6d,85) and isColor(503,1292,0xfefffe,85) and isColor(504,1303,0x3bc374,85) then
 		nLog("开始偷能量")
 		stolen()
-
-
 		mSleep(2000)
+	end
+	if isColor(459,2148,0x333333,85) and isColor(471,2151,0xffffff,85) and isColor(498,2148,0x333333,85) and isColor(509,2157,0xffffff,85) and isColor(533,2157,0x333333,85) and isColor(556,2157,0xffffff,85) and isColor(578,2155,0x333333,85) and isColor(597,2155,0xffffff,85) and isColor(612,2155,0x333333,85) then
+		break
 	end
 end
