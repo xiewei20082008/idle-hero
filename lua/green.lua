@@ -31,9 +31,9 @@ function stolen()
 			nLog("stole click at "..x..","..y)
 			wLog("test","stole click at "..x..","..y)
 			click(x,y)
+			return true
 		else
-			os.execute("input keyevent 4")
-			break
+			return false
 		end
 
 		mSleep(4000)
@@ -68,15 +68,17 @@ while true do
 	end
 
 	if isColor(56,1259,0xfbfbfb,85) and isColor(56,1261,0x4c4c4c,85) and isColor(56,1264,0xffffff,85) and isColor(56,1273,0x4c4c4c,85) and isColor(56,1281,0xffffff,85) and isColor(71,1279,0x4c4c4c,85) and isColor(94,1276,0xfbfbfb,85) and isColor(103,1276,0x4c4c4c,85) and isColor(108,1275,0xffffff,85) and isColor(119,1275,0x4c4c4c,85) then
-		nLog("最新动态向下滑")
-		moveTo(545,900,545,100)
-		mSleep(1000)
-		moveTo(545,900,545,100)
-		mSleep(1000)
-		moveTo(545,900,545,100)
-		mSleep(1000)
-		click(540,1700)
-		mSleep(4000)
+		if (not stolen()) then
+			nLog("最新动态向下滑")
+			moveTo(545,900,545,100)
+			mSleep(1000)
+			moveTo(545,900,545,100)
+			mSleep(1000)
+			moveTo(545,900,545,100)
+			mSleep(1000)
+			click(540,1700)
+			mSleep(4000)
+		end
 	end
 
 	if isColor(131,158,0xffffff,85) and isColor(134,158,0x111111,85) and isColor(136,158,0x828282,85) and isColor(134,163,0x111111,85) and isColor(136,169,0xffffff,85) and isColor(138,173,0x111111,85) and isColor(141,174,0xffffff,85) and isColor(155,170,0x111111,85) and isColor(160,173,0xffffff,85) and isColor(194,182,0x111111,85) then
@@ -91,7 +93,9 @@ while true do
 
 	if isColor(478,1268,0xffffff,85) and isColor(478,1273,0x31bf6d,85) and isColor(479,1278,0xfefffe,85) and isColor(479,1282,0x37c170,85) and isColor(479,1286,0xf7fdf9,85) and isColor(479,1290,0x31bf6d,85) and isColor(493,1293,0xfefffe,85) and isColor(498,1293,0x31bf6d,85) and isColor(503,1292,0xfefffe,85) and isColor(504,1303,0x3bc374,85) then
 		nLog("开始偷能量")
-		stolen()
+		if(not stolen()) then
+			os.execute("input keyevent 4")
+		end
 		mSleep(2000)
 	end
 	if isColor(459,2148,0x333333,85) and isColor(471,2151,0xffffff,85) and isColor(498,2148,0x333333,85) and isColor(509,2157,0xffffff,85) and isColor(533,2157,0x333333,85) and isColor(556,2157,0xffffff,85) and isColor(578,2155,0x333333,85) and isColor(597,2155,0xffffff,85) and isColor(612,2155,0x333333,85) then
