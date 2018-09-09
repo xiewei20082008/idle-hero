@@ -21,7 +21,8 @@ function screencap(prefix)
 	current_time = os.date("%m-%d-%H:%M:%S", os.time()); --以时间戳命名进行截图
 	file_name = "/sdcard/log/"..prefix..current_time..".png"
 	os.execute("screencap -p "..file_name)
-	mSleep(8000)
+	mSleep(4000)
+	return file_name
 end
 
 function click(x, y)

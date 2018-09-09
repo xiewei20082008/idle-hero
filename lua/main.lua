@@ -296,6 +296,46 @@ function open_box()
 	return true
 end
 
+function flush_casino()
+	move_to_left()
+	click(1220,750)
+	mSleep(2000)
+	click(730,570)
+	start_time = os.time()
+	while true do
+		if timeout(start_time, 2) then
+			wLog("test","run flush_casino timeout")
+			return false
+		end
+		if isColor(929,997,0x8ad919,85) and isColor(933,997,0x1d6700,85) and isColor(940,998,0x8ad919,85) and isColor(943,1001,0x1d6700,85) and isColor(954,1004,0x6ebd13,85) and isColor(957,1007,0x1d6700,85) and isColor(962,1008,0x80cf17,85) and isColor(970,1009,0x1d6700,85) and isColor(978,1011,0x7ac915,85) and isColor(988,1014,0x1f6800,85) then
+			file_name = screencap("")
+			output = shell_run("/data/go/multimatch "..file_name..
+				" /sdcard/go/light_point.png 630 160 1300 870 0.0 2")
+			wLog("test", "light:"..output)
+			ok = 0
+			for sim, x, y in string.gmatch( output,"(%S+),(%d+),(%d+)" ) do
+				ok=1
+				break
+			end
+			output = shell_run("/data/go/multimatch "..file_name..
+				" /sdcard/go/dark_point.png 630 160 1300 870 0.0 2")
+			wLog("test", "dark:"..output)
+			for sim, x, y in string.gmatch( output,"(%S+),(%d+),(%d+)" ) do
+				ok=1
+				break
+			end
+			if ok == 0 then
+				wLog("test", "click flush casino")
+				click(960,1000)
+			end
+			return true
+		end
+		if isColor(850,999,0x13d2fb,85) and isColor(867,1005,0x1bdbfb,85) and isColor(950,1003,0x8ad919,85) and isColor(961,1001,0x1d6700,85) and isColor(968,998,0x8ad919,85) and isColor(973,1013,0x58a50e,85) and isColor(985,1011,0x1d6700,85) and isColor(988,1016,0x8ad919,85) then
+			return true
+		end
+	end
+end
+
 function search_treasure()
 	-- click friend icon
 	click(64,668)
@@ -379,6 +419,15 @@ while true do
 	if rc==false then
 		goto post_run
 	end
+	
+	rc = flush_casino()
+	if rc==false then
+		goto post_run
+	end
+	rc = back_mainpage()
+	if rc==false then
+		goto post_run
+	end
 
 	rc = guild_boss()
 	if rc==false then
@@ -400,5 +449,4 @@ lockDevice();
 lua_exit();
 
 --init(app_name,1);
-
---back_mainpage()
+--flush_casino()
