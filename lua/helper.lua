@@ -37,7 +37,7 @@ end
 
 function move_to_left()
 	moveTo(545,600,1212,630)
-	mSleep(2000)
+	mSleep(1000)
 end
 
 function is_mainpage()
