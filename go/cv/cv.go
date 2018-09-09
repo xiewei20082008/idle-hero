@@ -122,7 +122,20 @@ func Match(img, pattern image.Image, x1, y1, x2, y2 int) (float64, int, int) {
 	return MatchWithOpt(img, pattern, x1, y1, x2, y2, 0.08)
 }
 
+type Point struct {
+	Sim float64
+	X int
+	Y int
+}
+
 func MatchWithOpt(img, pattern image.Image, x1, y1, x2, y2 int, opt float64) (float64, int, int) {
+	points := MatchWithOptMulti(img, pattern,x1,y1,x2,y2,opt,GAP, false)
+	return points[0].Sim,points[0].X,points[0].Y
+}
+
+
+func MatchWithOptMulti(img, pattern image.Image, x1, y1, x2, y2 int, opt float64, gap int, multi bool) ([]Point) {
+	var points []Point
 	patternDx := pattern.Bounds().Dx()
 	patternDy := pattern.Bounds().Dy()
 	imgDx := x2
@@ -133,12 +146,15 @@ func MatchWithOpt(img, pattern image.Image, x1, y1, x2, y2 int, opt float64) (fl
 	targetX, targetY := 0, 0
 	for i := x1; i+patternDx <= imgDx; i++ {
 		for j := y1; j+patternDy <= imgDy; j++ {
-			if !isColorSame(referColor, img.At(i+referX, j+referY), GAP) {
+			if !isColorSame(referColor, img.At(i+referX, j+referY), gap) {
 				continue
 			}
 			diffNow, _ := calDiff(img, pattern, i, j)
 			if diffNow <= opt {
-				return diffNow, i, j
+				points = append(points,Point{Sim:diffNow, X:i, Y:j})
+				if !multi {
+					return points
+				}
 			}
 			if diffNow < diff {
 				targetX, targetY = i, j
@@ -149,7 +165,7 @@ func MatchWithOpt(img, pattern image.Image, x1, y1, x2, y2 int, opt float64) (fl
 	if DEBUG {
 		fmt.Printf("match at %v, %v\n", targetX, targetY)
 	}
-	return diff, targetX, targetY
+	return points
 }
 
 func CompleteMatch(img, pattern image.Image) (float64, int, int) {
