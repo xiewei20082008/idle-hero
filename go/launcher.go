@@ -32,8 +32,12 @@ func click(x, y int) {
 }
 
 func main() {
-	exec.Command("pkill", "droidhang").Run()
-	time.Sleep(10 * time.Second)
+
+	fmt.Printf("before exe monkey\n")
+	exec.Command("sh","-c", "monkey -p com.touchsprite.android -c android.intent.category.LAUNCHER 1").Run()
+	fmt.Printf("after exe monkey\n")
+	time.Sleep(12 * time.Second)
+	
 
 	notRunningFloaterFile, _ := os.Open("/sdcard/go/not_running.png")
 	notRunningFloaterPattern, _ := png.Decode(notRunningFloaterFile)
@@ -56,9 +60,9 @@ func main() {
 
 	for {
 
-		sim, x, y := cv.Match(img1, notRunningFloaterPattern, 0, 1660, 117, 1920)
+		sim, x, y := cv.Match(img1, notRunningFloaterPattern, 0, 0, 117, 2248)
 		if sim < 0.08 {
-			sim1, _, _ := cv.Match(img1, stopPattern, 170, 1700, 320, 1920)
+			sim1, _, _ := cv.Match(img1, stopPattern, 170, 0, 320, 2248)
 			if sim1 < 0.08 {
 				click(x+100, y)
 			} else {
@@ -69,9 +73,9 @@ func main() {
 			break
 		}
 
-		sim, x, y = cv.Match(img1, runningFloaterPattern, 0, 1660, 117, 1920)
+		sim, x, y = cv.Match(img1, runningFloaterPattern, 0, 0, 117, 2248)
 		if sim < 0.08 {
-			sim1, p, q := cv.Match(img1, stopPattern, 170, 1700, 320, 1920)
+			sim1, p, q := cv.Match(img1, stopPattern, 170, 0, 320, 2248)
 			if sim1 < 0.08 {
 				click(p, q)
 				time.Sleep(6 * time.Second)
