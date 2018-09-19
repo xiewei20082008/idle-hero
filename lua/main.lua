@@ -264,6 +264,16 @@ function open_box()
 --	点悬空岛
 	click(1340,240)
 	mSleep(4000)
+	
+	click(917, 777)
+	mSleep(2000)
+	click(1155, 750)
+	mSleep(2000)
+	click(1051, 650)
+	mSleep(2000)
+	click(1261, 478)
+	mSleep(2000)
+	
 --	点飞艇
 	click(560,820)
 	mSleep(6000)
