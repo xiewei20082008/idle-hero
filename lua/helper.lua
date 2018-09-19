@@ -67,8 +67,7 @@ function timeout(start_time, gap)
 end
 
 
-
-function get_exp()
+function get_exp_loot1(loot)
 	start_time = os.time()
 	move_to_left()
 	click(1914,533)
@@ -84,10 +83,22 @@ function get_exp()
 		if x~=-1 then
 			click(1691,204)
 			nLog("get exp")
+			if loot then
+				mSleep(2000)
+				click(1633,649)
+			end
 			return true
 		end
 		mSleep(2000)
 	end
+end
+
+function get_exp_loot()
+	return get_exp_loot1(true)
+end
+
+function get_exp()
+	return get_exp_loot1(false)
 end
 
 function back_mainpage()

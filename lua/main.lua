@@ -402,7 +402,7 @@ while true do
 		goto post_run
 	end
 
-	rc = get_exp()
+	rc = get_exp_loot()
 	if rc==false then
 		goto post_run
 	end
