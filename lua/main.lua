@@ -126,12 +126,12 @@ function run_store()
 			buy_cycle(out, false)
 
 
-			out = choose_to_buy(file_name, "dust")
-			wLog("test", "dust out is "..out)
-			buy_cycle(out, false)
-			out = choose_to_buy(file_name, "tree")
-			wLog("test", "tree out is "..out)
-			buy_cycle(out, true)
+--			out = choose_to_buy(file_name, "dust")
+--			wLog("test", "dust out is "..out)
+--			buy_cycle(out, false)
+--			out = choose_to_buy(file_name, "tree")
+--			wLog("test", "tree out is "..out)
+--			buy_cycle(out, true)
 
 --			out = choose_to_buy(file_name, "vip_casino")
 --			wLog("test", "vip_casino out is "..out)
