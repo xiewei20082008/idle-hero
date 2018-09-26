@@ -1,7 +1,7 @@
 require("helper")
 
 
-account_num = 1992
+account_num = 1996
 now_friend=0
 need_friend = 5
 
@@ -90,7 +90,7 @@ function stay_auto_battle()
 end
 
 function select_hero()
-	if not isColor(1278,447,0x5c3929,85) then
+	if not isColor(1278,447,0x5c3929,95) then
 		click(1500,437)
 		return
 	end
@@ -186,7 +186,7 @@ function pass_dungeon()
 	while true do
 		if isColor(915,638,0xffd76b,85) and isColor(915,644,0x83513b,85) and isColor(915,652,0xffd76b,85) and isColor(915,660,0x83513b,85) and isColor(915,670,0xffd76b,85) and isColor(961,660,0xfbd369,85) and isColor(961,665,0x83513b,85) and isColor(984,665,0x83513b,85) and isColor(993,665,0xffd76b,85) then
 			-- 通过
-			mSleep(1000)
+			mSleep(300)
 
 			ok = 0
 
@@ -194,37 +194,37 @@ function pass_dungeon()
 			if rc then
 				ok = 1
 			else
-
-				click(1532,897)
-				mSleep(2000)
-
-				if stay_auto_battle() then
-					ok = 1
-				else
-					click(990,310)
+				-- 中间点有绿
+				r,g,b = getColorRGB(1044,891);
+				if r<0x30 then
+					click(1260,891)
 					mSleep(1000)
-					click(1252,897)
-					mSleep(2000)
-					if stay_auto_battle() then
-						ok = 1
-					else
-						click(990,310)
-						mSleep(1000)
-						click(976,893)
-						mSleep(2000)
-						if stay_auto_battle() then
-							ok = 1
-						else
-							click(990,310)
-							mSleep(1000)
-							click(695,893)
-							mSleep(2000)
-							if stay_auto_battle() then
-								ok = 1
-							end
-						end
-					end
+					click(960,930)
+					ok = 1
 				end
+
+				r,g,b = getColorRGB(482,891);
+				if r<0x30 then
+					click(688,891)
+					mSleep(1000)
+					click(960,930)
+					ok = 1
+				end
+				r,g,b = getColorRGB(763,891);
+				if r<0x30 then
+					click(973,891)
+					mSleep(1000)
+					click(960,930)
+					ok = 1
+				end
+				r,g,b = getColorRGB(1325,891);
+				if r<0x30 then
+					click(1532,891)
+					mSleep(1000)
+					click(960,930)
+					ok = 1
+				end
+				ok = 0
 			end
 
 			if ok == 1 then
@@ -242,6 +242,9 @@ function pass_dungeon()
 			mSleep(2000)
 			if isColor(965,551,0xd81f15,85) and isColor(974,549,0xfde60f,85) and isColor(974,553,0xfff112,85) and isColor(974,566,0x1f1811,85) and isColor(976,577,0xfde60e,85) and isColor(986,587,0xb4acb6,85) and isColor(999,606,0x539816,85) then
 				toast("失败换下一个号",1)
+--				playAudio("/sdcard/Download/10620.mp3")
+--				mSleep(5000)
+--				stopAudio()
 				return true
 			end
 			click(960,890)
@@ -251,10 +254,7 @@ function pass_dungeon()
 			click(958,660)
 		end
 
-		mSleep(2000)
 	end
-
-
 end
 
 
@@ -313,35 +313,66 @@ function main()
 			break
 		end
 		account_num = account_num + 1
-
 	end
 end
 
 function all_pass_dungeon()
-	change_account()
 	while true do
-		if is_mainpage() then
-			break
-		end
-		mSleep(2000)
-	end
-
-	move_to_left()
-	click(1914,533)
-	mSleep(1500)
-	rc = pass_dungeon()
-	if rc then
-		back_mainpage()
 		change_account()
+	
 		while true do
 			if is_mainpage() then
 				break
 			end
 			mSleep(2000)
 		end
+
+		move_to_left()
+		
+		click(1914,533)
+		mSleep(1500)
+		rc = pass_dungeon()
+		if rc then
+			back_mainpage()
+			account_num = account_num + 1
+		end
+		
+		if account_num== 2029 then
+			break
+		end
+	end
+end
+
+function get_email()
+	-- body
+end
+
+function all_farm()
+	while true do
+		change_account()
+	
+		while true do
+			if is_mainpage() then
+				break
+			end
+			mSleep(2000)
+		end
+
+		move_to_left()
+		
+		click(1914,533)
+		mSleep(1500)
+				
+		back_mainpage()
+		
+		
+		account_num = account_num + 1
+		if account_num== 2029 then
+			break
+		end
 	end
 end
 
 init(app_name,1);
-pass_dungeon()
+all_pass_dungeon()
 --main()

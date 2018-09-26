@@ -41,12 +41,20 @@ function move_to_left()
 	mSleep(1000)
 end
 
+function offline_reconnect()
+	if isColor(933,674,0xf6c951,85) and isColor(935,679,0x733b05,85) and isColor(938,684,0xf5c750,85) and isColor(943,685,0x733b05,85) and isColor(946,688,0xf3c54f,85) and isColor(950,691,0x733b05,85) and isColor(953,695,0xecbe4b,85) and isColor(956,697,0x733b05,85) and isColor(959,699,0xe8ba49,85) then
+		click(966,696)
+		mSleep(1000)
+	end
+end
+
 function is_mainpage()
 	x,y = findMultiColorInRegionFuzzy( 0xeca17c, "12|3|0x7e2f14,13|20|0xdc7a4d,30|6|0x7e2e13,43|24|0xdc7b4e,47|5|0x7d2b12", 90, 1767, 13, 1902, 83)
 	if x~=-1 then
 		click(x,y)
 		mSleep(1500)
 	end
+	offline_reconnect()
 	x,y = findMultiColorInRegionFuzzy( 0xfee281, "2|14|0xa95906,9|-3|0xfee78a,14|11|0xaf5709,33|-2|0xfee98e,34|12|0xa85806", 90, 1767, 13, 1902, 83)
 	if x~=-1 then
 		return true
