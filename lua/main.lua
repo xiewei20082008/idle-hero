@@ -5,45 +5,7 @@ market_click_pos = {{534,723}, {534,970},{824,723},{824,970},{1087,723},{1087,97
 
 
 
-function choose_to_buy(file_name, pattern)
-	p = io.popen("/data/go/market "..file_name.." /sdcard/go/"..pattern..".png")
-	out = p:read("*all")
-	p:close()
-	return out
-end
 
-function try_click_confirm()
-	times = 10
-	while(times>0) do
-		x,y = findMultiColorInRegionFuzzy( 0x7b4309, "-1|2|0xd7a73f,-1|4|0x773f08,-1|6|0xc49334,8|13|0x753c06,8|15|0xddad42,8|22|0xe4b647,8|24|0x733b05", 90, 1135, 630, 1150, 683)
-		if x~=-1 then
-			click(1135,630)
-		end
-		x,y = findMultiColorInRegionFuzzy( 0x733b05, "0|4|0xebbd4a,4|5|0x753d06,8|5|0xf4c850,24|8|0x743c05,26|11|0xe9bb49,26|15|0x733b05,27|27|0xf4c850,28|30|0x773f07", 90, 907, 662, 980, 724)
-		if x~=-1 then
-			click(949,696)
-			break
-		end
-		times = times - 1
-		mSleep(1000)
-	end
-end
-
-
-function buy_cycle(s, always_buy)
-	for pos, is_coin in string.gmatch(s, "(%d+)%s(%a+)") do
-		nLog(pos)
-		nLog(is_coin)
-		if ((is_coin=="true") or (always_buy==true)) then
-			x = market_click_pos[pos+1][1]
-			y = market_click_pos[pos+1][2]
-			wLog("test", "will click at "..x.."and "..y)
-			click(x,y)
-			try_click_confirm()
-			mSleep(5000)
-		end
-	end
-end
 
 function init_log()
 	initLog("test", 0);  

@@ -4,8 +4,14 @@
 green.lua
 G:\weix\app\TS_Studio v1.2.3\idle-hero\lua\green.lua
 helper.lua
-find_marauder.lua
+smurf.lua
 watch_ad.lua
 main.lua
 
 test.lua
+
+all_farm.lua
+
+find_marauder.lua
+all_dungeon.lua
+all_manual.lua
