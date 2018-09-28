@@ -1,7 +1,7 @@
 require "TSLib"
 require "helper"
 --ver8.9
-market_click_pos = {{534,723}, {534,970},{824,723},{824,970},{1087,723},{1087,970},{1380,723},{1380,970}}
+
 
 
 
@@ -346,14 +346,14 @@ while true do
 		goto post_run
 	end
 
-	rc = run_store()
-	if rc==false then
-		goto post_run
-	end
-	rc = back_mainpage()
-	if rc==false then
-		goto post_run
-	end
+--	rc = run_store()
+--	if rc==false then
+--		goto post_run
+--	end
+--	rc = back_mainpage()
+--	if rc==false then
+--		goto post_run
+--	end
 
 	rc = get_mill_request()
 	if rc==false then
