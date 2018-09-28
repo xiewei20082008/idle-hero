@@ -3,7 +3,7 @@ require("helper")
 
 account_num = 1990
 now_friend=0
-need_friend = 5
+need_friend = 10
 
 function get_username()
 	if account_num == 1989 then
@@ -390,6 +390,57 @@ function buy_purple_ball()
 	end
 end
 
+function island_clear()
+	--拿金币
+	move_to_left()
+	click(1331,250)
+	mSleep(4000)
+	click(1048,646)
+	mSleep(2000)
+	click(758,470)
+	mSleep(2000)
+--	飞TING
+	click(555,853)
+	mSleep(4000)
+	--点虚空之巢
+	click(653,286)
+	mSleep(2000)
+	click(606,816)
+	mSleep(2000)
+
+	for var = 1,20 do
+		click(1169,504)
+		mSleep(300)
+	end
+	click(956,748)
+	mSleep(2000)
+--	选个英雄
+	click(177,971)
+	mSleep(1000)
+	click(1517,446)
+end
+
+function nation_day_signup()
+	click(1478,89)
+	mSleep(2000)
+	while true do
+		if isColor(362,626,0x733b05,90) and isColor(368,626,0xf4ebdd,90) and isColor(377,628,0xf4ebdd,90) and isColor(386,633,0x763f09,90) and isColor(405,640,0xf4ebdd,90) and isColor(413,640,0x733b05,90) and isColor(425,640,0xf2e9da,90) and isColor(446,640,0x733c06,90) and isColor(466,640,0xf4ebdd,90) then
+			click(516,667)
+			mSleep(1000)
+		end
+		if isColor(1565,868,0x8ad919,90) and isColor(1573,890,0x8ad919,90) and isColor(1599,904,0x8ad919,90) and isColor(1688,880,0x8ad919,90) and isColor(1686,902,0x8ad919,90) and isColor(1713,875,0x8ad919,90) then
+			click(1622,881)
+			mSleep(1000)
+		end
+		
+		if isColor(933,678,0xf6c951,90) and isColor(934,682,0x794108,90) and isColor(938,687,0xf4c750,90) and isColor(942,689,0x743c05,90) and isColor(946,692,0xf0c34e,90) and isColor(949,695,0x733b05,90) and isColor(953,698,0xf4c850,90) and isColor(964,700,0xf6c951,90) and isColor(969,704,0x733b05,90) then
+			return true
+		end
+		mSleep(2000)
+	end
+end
+
+
 function all_farm()
 	while true do
 		change_account()
@@ -414,17 +465,11 @@ function all_farm()
 		daily_signup()
 		back_mainpage()
 
-		buy_purple_ball()
+		island_clear()
 		back_mainpage()
-		
-		move_to_left()
-		click(1331,250)
-		mSleep(4000)
-		click(1048,646)
-		mSleep(1000)
-		back_mainpage()
-		
 
+		nation_day_signup()
+		back_mainpage()
 
 		if account_num== 2029 then
 			break
