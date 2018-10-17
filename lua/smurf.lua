@@ -66,16 +66,14 @@ function add_me_as_friend()
 	mSleep(800)
 	click(1271,265)
 
-
-
-	click(565,259)
-	mSleep(1500)
-	for var = 1,12 do
-		inputText("\b")       --删除输入框中的文字（假设输入框中已存在文字）
-	end
-	inputText("16216808")
-	mSleep(800)
-	click(1271,265)
+--	click(565,259)
+--	mSleep(1500)
+--	for var = 1,12 do
+--		inputText("\b")       --删除输入框中的文字（假设输入框中已存在文字）
+--	end
+--	inputText("16216808")
+--	mSleep(800)
+--	click(1271,265)
 
 	switchTSInputMethod(false)
 	mSleep(800)
@@ -408,7 +406,7 @@ function island_clear()
 	click(606,816)
 	mSleep(2000)
 
-	for var = 1,20 do
+	for var = 1,15 do
 		click(1169,504)
 		mSleep(300)
 	end
@@ -424,16 +422,20 @@ function nation_day_signup()
 	click(1478,89)
 	mSleep(2000)
 	while true do
-		if isColor(362,626,0x733b05,90) and isColor(368,626,0xf4ebdd,90) and isColor(377,628,0xf4ebdd,90) and isColor(386,633,0x763f09,90) and isColor(405,640,0xf4ebdd,90) and isColor(413,640,0x733b05,90) and isColor(425,640,0xf2e9da,90) and isColor(446,640,0x733c06,90) and isColor(466,640,0xf4ebdd,90) then
-			click(516,667)
+		if isColor(410,472,0x8c5d2f,90) and isColor(418,474,0xe5d7c5,90) and isColor(420,479,0xf1e7d9,90) and isColor(432,482,0x753d08,90) and isColor(437,483,0xf5e6d2,90) and isColor(446,485,0x733b05,90) and isColor(453,488,0xf4ebdd,90) and isColor(461,488,0x733b05,90) then
+			click(447,505)
 			mSleep(1000)
 		end
+		if isColor(926,681,0xf6c951,90) and isColor(935,683,0x733b05,90) and isColor(938,687,0xf4c750,90) and isColor(942,688,0x733b05,90) and isColor(946,692,0xf0c34e,90) and isColor(949,695,0x733b05,90) and isColor(953,698,0xf4c850,90) then
+			click(963,694)
+			mSleep(1000)
+		end
+
 		if isColor(1565,868,0x8ad919,90) and isColor(1573,890,0x8ad919,90) and isColor(1599,904,0x8ad919,90) and isColor(1688,880,0x8ad919,90) and isColor(1686,902,0x8ad919,90) and isColor(1713,875,0x8ad919,90) then
 			click(1622,881)
 			mSleep(1000)
 		end
-		
-		if isColor(933,678,0xf6c951,90) and isColor(934,682,0x794108,90) and isColor(938,687,0xf4c750,90) and isColor(942,689,0x743c05,90) and isColor(946,692,0xf0c34e,90) and isColor(949,695,0x733b05,90) and isColor(953,698,0xf4c850,90) and isColor(964,700,0xf6c951,90) and isColor(969,704,0x733b05,90) then
+		if isColor(1604,864,0xababab,90) and isColor(1611,876,0x464646,90) and isColor(1612,879,0xababab,90) and isColor(1615,880,0x464646,90) and isColor(1622,886,0xababab,90) and isColor(1631,887,0xababab,90) and isColor(1638,889,0x464646,90) then
 			return true
 		end
 		mSleep(2000)
