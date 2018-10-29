@@ -354,9 +354,12 @@ end
 function daily_signup()
 	click(1652,90)
 	mSleep(2000)
-	for i=5,1,-1 do
+	while true do 
 		click(1626,884)
-		mSleep(1000)
+		mSleep(500)
+		if isColor(1567,886,0xababab,90) then
+			break
+		end
 	end
 end
 
@@ -397,7 +400,7 @@ function island_clear()
 	mSleep(2000)
 	click(758,470)
 	mSleep(2000)
---	飞TING
+	--	飞TING
 	click(555,853)
 	mSleep(4000)
 	--点虚空之巢
@@ -412,7 +415,7 @@ function island_clear()
 	end
 	click(956,748)
 	mSleep(2000)
---	选个英雄
+	--	选个英雄
 	click(177,971)
 	mSleep(1000)
 	click(1517,446)
@@ -470,8 +473,8 @@ function all_farm()
 		island_clear()
 		back_mainpage()
 
-		nation_day_signup()
-		back_mainpage()
+		--nation_day_signup()
+		--back_mainpage()
 
 		if account_num== 2029 then
 			break
@@ -484,8 +487,8 @@ function all_manual()
 	while true do
 		change_account()
 		while true do
-			x,y = findMultiColorInRegionFuzzy( 0xbfec7c, "2|-3|0xfdfdfe,15|-1|0x49941b,22|1|0x116d22,12|26|0xfabe12,42|4|0x48261e", 90, 953, 22, 1030, 101)
-			if x~=-1 then
+			if isColor(929,249,0xf3ebdb,90) and isColor(931,253,0x946242,90) and isColor(936,256,0xf2ead9,90) and isColor(935,260,0x956344,90) and isColor(937,264,0xf0e7d6,90) and isColor(854,333,0xf0e4ce,90) and isColor(824,346,0x61342a,90) and isColor(791,400,0xd25547,90) and isColor(496,400,0xd25547,90) then
+
 				back_mainpage()
 				break
 			end

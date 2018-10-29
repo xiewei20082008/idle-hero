@@ -1,3 +1,4 @@
+require "TSLib"
 function click(x, y)
 	touchDown(x, y)
 	mSleep(30)
@@ -27,10 +28,9 @@ while true do
 		end
 	end
 
-	x,y = findMultiColorInRegionFuzzy( 0xf2f1ed, "25|-15|0xe5e1dc,22|15|0xe3e5e4,59|-19|0x8f5237,56|2|0x874e36", 90, 468, 97, 660, 293)
-	if x~=-1 then
+	if isColor(721,375,0x392f1f,90) and isColor(776,368,0x1d2319,90) and isColor(843,413,0x4c4c28,90) and isColor(922,475,0xe6dcca,90) and isColor(897,659,0x056ab0,90) and isColor(1023,661,0x1c0b00,90) and isColor(1030,573,0xf0cda2,90) then
 		nLog("然后进入游戏")
-		click(x,y)		
+		click(500,500)
 	end
 
 	x,y = findMultiColorInRegionFuzzy( 0x585756, "16|-11|0x0a090a,13|13|0xdfdfe1,27|3|0x2d1f17,40|2|0xdcd8e2,35|26|0xe6e6e4,41|16|0x0c0c13,73|25|0x189cf9,53|48|0x3fe7fc", 90, 355, 20, 509, 139)
@@ -46,7 +46,7 @@ while true do
 		click(x,y)
 		mSleep(700)			
 		times = times + 1
-		
+
 		os.execute("pkill droidhang")
 		mSleep(5000)
 		init('0',1);

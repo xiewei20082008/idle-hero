@@ -15,3 +15,6 @@ all_farm.lua
 find_marauder.lua
 all_dungeon.lua
 all_manual.lua
+zh4x4.lua
+
+zh.lua

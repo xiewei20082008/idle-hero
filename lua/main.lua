@@ -33,10 +33,12 @@ function enter_game()
 			click(x,y)
 		end
 
-		x,y = findMultiColorInRegionFuzzy( 0xf2f1ed, "25|-15|0xe5e1dc,22|15|0xe3e5e4,59|-19|0x8f5237,56|2|0x874e36", 90, 468, 97, 660, 293)
-		if x~=-1 then
+
+		--x,y = findMultiColorInRegionFuzzy( 0xf2f1ed, "25|-15|0xe5e1dc,22|15|0xe3e5e4,59|-19|0x8f5237,56|2|0x874e36", 90, 468, 97, 660, 293)
+
+		if isColor(721,375,0x392f1f,90) and isColor(776,368,0x1d2319,90) and isColor(843,413,0x4c4c28,90) and isColor(922,475,0xe6dcca,90) and isColor(897,659,0x056ab0,90) and isColor(1023,661,0x1c0b00,90) and isColor(1030,573,0xf0cda2,90) then
 			nLog("然后进入游戏")
-			click(x,y)
+			click(500,500)
 		end
 
 		if is_mainpage() then
@@ -88,16 +90,16 @@ function run_store()
 			buy_cycle(out, false)
 
 
---			out = choose_to_buy(file_name, "dust")
---			wLog("test", "dust out is "..out)
---			buy_cycle(out, false)
---			out = choose_to_buy(file_name, "tree")
---			wLog("test", "tree out is "..out)
---			buy_cycle(out, true)
+			--			out = choose_to_buy(file_name, "dust")
+			--			wLog("test", "dust out is "..out)
+			--			buy_cycle(out, false)
+			--			out = choose_to_buy(file_name, "tree")
+			--			wLog("test", "tree out is "..out)
+			--			buy_cycle(out, true)
 
---			out = choose_to_buy(file_name, "vip_casino")
---			wLog("test", "vip_casino out is "..out)
---			buy_cycle(out, true)
+			--			out = choose_to_buy(file_name, "vip_casino")
+			--			wLog("test", "vip_casino out is "..out)
+			--			buy_cycle(out, true)
 			out = choose_to_buy(file_name, "orb")
 			wLog("test", "orb out is "..out)
 			buy_cycle(out, true)
@@ -132,18 +134,18 @@ function restartApp()
 end
 
 function guild_boss()
---	点击公会
+	--	点击公会
 	click(1336,992)
 	mSleep(4000)
---	点击领地
+	--	点击领地
 	click(466,940)
 	mSleep(4000)
---	点击副本
+	--	点击副本
 	click(950,331)
 	mSleep(4000)
 	x,y = findMultiColorInRegionFuzzy( 0xfdfbf9, "-14|1|0x6b73ae,-18|22|0x38407a,-33|28|0xf9dc10,26|28|0xf9dc10,21|-10|0xaeb2d1", 90, 313, 239, 1594, 890)
 	if x~=-1 then
---		点击选BOSS的匕首
+		--		点击选BOSS的匕首
 		click(x,y)
 		mSleep(4000)
 	else
@@ -152,10 +154,10 @@ function guild_boss()
 
 	x,y = findMultiColorInRegionFuzzy( 0xf17032, "4|4|0x62352a,10|17|0x62352a,17|12|0xf27333,21|-1|0x61342a,33|6|0xf27233,46|14|0x61342a", 90, 417, 840, 542, 913)
 	if x~=-1 then
---		点击战斗文字
+		--		点击战斗文字
 		click(x,y)
 		mSleep(4000)
---		点击匕首开始打
+		--		点击匕首开始打
 		click(1500,440)
 		mSleep(4000)
 	else
@@ -164,10 +166,10 @@ function guild_boss()
 
 	x,y = findMultiColorInRegionFuzzy( 0x85513a, "8|-1|0xffea91,8|25|0xfbc546,27|25|0x85513a,35|22|0xfbc84a,43|0|0xffeb93,51|0|0x85513a", 90, 1794, 10, 1898, 82)
 	if x~=-1 then
---		点击跳过图标
+		--		点击跳过图标
 		click(x,y)
 		mSleep(3000)
---		点击确定
+		--		点击确定
 		click(1130,700)
 		mSleep(3000)
 	else
@@ -177,10 +179,10 @@ function guild_boss()
 end
 
 function get_mill_request()
---	点击公会
+	--	点击公会
 	click(1336,992)
 	mSleep(4000)
---	点击领地
+	--	点击领地
 	click(466,940)
 	mSleep(4000)
 	--	点击磨坊
@@ -223,10 +225,10 @@ function open_box()
 	nLog("start to open box")
 	move_to_left()
 
---	点悬空岛
+	--	点悬空岛
 	click(1340,240)
 	mSleep(4000)
-	
+
 	click(917, 777)
 	mSleep(2000)
 	click(1155, 750)
@@ -235,8 +237,10 @@ function open_box()
 	mSleep(2000)
 	click(1261, 478)
 	mSleep(2000)
-	
---	点飞艇
+	click(1512,458)
+	mSleep(2000)
+
+	--	点飞艇
 	click(560,820)
 	mSleep(6000)
 	start_time = os.time()
@@ -346,14 +350,14 @@ while true do
 		goto post_run
 	end
 
---	rc = run_store()
---	if rc==false then
---		goto post_run
---	end
---	rc = back_mainpage()
---	if rc==false then
---		goto post_run
---	end
+	--	rc = run_store()
+	--	if rc==false then
+	--		goto post_run
+	--	end
+	--	rc = back_mainpage()
+	--	if rc==false then
+	--		goto post_run
+	--	end
 
 	rc = get_mill_request()
 	if rc==false then
@@ -391,7 +395,7 @@ while true do
 	if rc==false then
 		goto post_run
 	end
-	
+
 	rc = flush_casino()
 	if rc==false then
 		goto post_run
