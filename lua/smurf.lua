@@ -21,7 +21,13 @@ function get_password()
 end
 
 function change_account()
+	start_time = os.time()
 	while true do
+		if timeout(start_time, 2) then
+			wLog("test","change account timeout")
+			return false
+		end
+
 		if is_mainpage() then
 			-- click at settings
 			click(1842,638)
@@ -44,7 +50,7 @@ function change_account()
 			click(1130,746)
 			mSleep(200)
 			switchTSInputMethod(false)
-			break
+			return true
 		end
 		mSleep(2000)
 	end
@@ -293,22 +299,21 @@ function find_marauder()
 
 end
 
-function main()
+function find_marauder_loop()
 
 	while true do
-		change_account()
-		while true do
-			if is_mainpage() then
-				break
-			end
-			mSleep(2000)
+
+		rc = change_account()
+		if rc==false then
+			return false
 		end
+		back_mainpage()
 		get_exp()
 		back_mainpage()
 		find_marauder()
 		back_mainpage()
-		if account_num== 2029 then
-			break
+		if account_num==2029 then
+			return true
 		end
 		account_num = account_num + 1
 	end
@@ -425,6 +430,10 @@ function nation_day_signup()
 	click(1478,89)
 	mSleep(2000)
 	while true do
+
+
+		if isColor(354,619,245,237,221,85) and isColor(358,624,115,59,5,85) and isColor(361,632,242,225,210,85) and isColor(372,641,121,68,16,85) and isColor(377,638,245,237,221,85) and isColor(387,634,237,226,207,85) and isColor(400,636,128,77,27,85) then
+		end
 		if isColor(410,472,0x8c5d2f,90) and isColor(418,474,0xe5d7c5,90) and isColor(420,479,0xf1e7d9,90) and isColor(432,482,0x753d08,90) and isColor(437,483,0xf5e6d2,90) and isColor(446,485,0x733b05,90) and isColor(453,488,0xf4ebdd,90) and isColor(461,488,0x733b05,90) then
 			click(447,505)
 			mSleep(1000)

@@ -1,56 +1,25 @@
 require "TSLib"
 require "helper"
+require("find_marauder")
 --ver8.9
 
-
-
-
-
+function is_time_allowed()
+	tt = os.date("*t",os.time())
+	if tt.hour>=20 and tt.hour<=21 then
+		nLog(tt.hour)
+		nLog("time allowed")
+		return true
+	else
+		nLog("time not allowed")
+		return false
+	end
+end
 
 function init_log()
 	initLog("test", 0);  
 	wLog("test","!! Start to run !!");
 	nLog("Start to run")
 end
-
-
-
-
-
-function enter_game()
-	start_time = os.time()
-	while true do
-
-		if timeout(start_time, 3) then
-			wLog("test","run enter game timeout")
-			screencap("fail_enter_game")
-			return false
-		end
-
-		x,y = findMultiColorInRegionFuzzy( 0x7c2203, "22|-2|0x7c2203,10|8|0x7c2203,-1|20|0x7c2203,20|20|0x7c2203", 90, 1481, 157, 1553, 223)
-		if x~=-1 then
-			nLog("进去先点叉子")
-			click(x,y)
-		end
-
-
-		--x,y = findMultiColorInRegionFuzzy( 0xf2f1ed, "25|-15|0xe5e1dc,22|15|0xe3e5e4,59|-19|0x8f5237,56|2|0x874e36", 90, 468, 97, 660, 293)
-
-		if isColor(721,375,0x392f1f,90) and isColor(776,368,0x1d2319,90) and isColor(843,413,0x4c4c28,90) and isColor(922,475,0xe6dcca,90) and isColor(897,659,0x056ab0,90) and isColor(1023,661,0x1c0b00,90) and isColor(1030,573,0xf0cda2,90) then
-			nLog("然后进入游戏")
-			click(500,500)
-		end
-
-		if is_mainpage() then
-			return true
-		end
-		mSleep(2000)
-	end
-end
-
-
-
-
 
 function run_store()
 	start_time = os.time()
@@ -327,9 +296,21 @@ function search_treasure()
 	return true
 end
 
+function file_exists(file_name)
+	local f = io.open(file_name, "r")
+	return f ~= nil and f:close()
+end
+
 init_log()
 
 wifi = 1
+
+
+
+if is_time_allowed() and not file_exists("/sdcard/log/aa.done") then
+	nLog("find marauder")
+	rc = find_marauder_main()
+end
 
 while true do
 	runApp(app_name);
