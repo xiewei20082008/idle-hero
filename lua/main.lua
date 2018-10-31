@@ -5,7 +5,7 @@ require("find_marauder")
 
 function is_time_allowed()
 	tt = os.date("*t",os.time())
-	if tt.hour>=20 and tt.hour<=21 then
+	if tt.hour>=3 and tt.hour<=9 then
 		nLog(tt.hour)
 		nLog("time allowed")
 		return true
@@ -307,9 +307,23 @@ wifi = 1
 
 
 
-if is_time_allowed() and not file_exists("/sdcard/log/aa.done") then
-	nLog("find marauder")
-	rc = find_marauder_main()
+if file_exists("/sdcard/log/aa.done") then
+	value = tonumber(shell_run("cat /sdcard/log/aa.done"))
+	if value==1989 then
+		last_mod_time = tonumber(shell_run("stat -c %Y /sdcard/log/aa.done"))
+		now_time = os.time()
+		wLog("test","aa.done exists and time diff is "..(now_time-last_mod_time))
+		if now_time - last_mod_time > 8*60*60 + 300 then
+			nLog("find marauder as waiting time up")
+			rc = find_marauder_main(1989)
+		end
+	else
+		wLog("test","continue find marauder from "..value)
+		rc = find_marauder_main(value)
+	end
+else
+	nLog("find marauder as no file")
+	rc = find_marauder_main(1989)
 end
 
 while true do

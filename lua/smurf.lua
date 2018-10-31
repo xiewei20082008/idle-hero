@@ -1,11 +1,10 @@
 require("helper")
 
 
-account_num = 1990
 now_friend=0
 need_friend = 10
 
-function get_username()
+function get_username(account_num)
 	if account_num == 1989 then
 		return "xiewei.fire@gmail.com"
 	end
@@ -20,7 +19,7 @@ function get_password()
 	return "123456qw"
 end
 
-function change_account()
+function change_account(account_num)
 	start_time = os.time()
 	while true do
 		if timeout(start_time, 2) then
@@ -39,7 +38,7 @@ function change_account()
 			-- click at user name
 			click(709,438)
 			mSleep(1500)
-			inputText(get_username())
+			inputText(get_username(account_num))
 			mSleep(800)
 			-- click at password
 			click(679,585)
@@ -299,11 +298,11 @@ function find_marauder()
 
 end
 
-function find_marauder_loop()
+function find_marauder_loop(account_num)
 
 	while true do
 
-		rc = change_account()
+		rc = change_account(account_num)
 		if rc==false then
 			return false
 		end
@@ -316,12 +315,13 @@ function find_marauder_loop()
 			return true
 		end
 		account_num = account_num + 1
+		shell_run("echo "..account_num.." > /sdcard/log/aa.done")
 	end
 end
 
-function all_pass_dungeon()
+function all_pass_dungeon(account_num)
 	while true do
-		change_account()
+		change_account(account_num)
 
 		while true do
 			if is_mainpage() then
@@ -430,10 +430,6 @@ function nation_day_signup()
 	click(1478,89)
 	mSleep(2000)
 	while true do
-
-
-		if isColor(354,619,245,237,221,85) and isColor(358,624,115,59,5,85) and isColor(361,632,242,225,210,85) and isColor(372,641,121,68,16,85) and isColor(377,638,245,237,221,85) and isColor(387,634,237,226,207,85) and isColor(400,636,128,77,27,85) then
-		end
 		if isColor(410,472,0x8c5d2f,90) and isColor(418,474,0xe5d7c5,90) and isColor(420,479,0xf1e7d9,90) and isColor(432,482,0x753d08,90) and isColor(437,483,0xf5e6d2,90) and isColor(446,485,0x733b05,90) and isColor(453,488,0xf4ebdd,90) and isColor(461,488,0x733b05,90) then
 			click(447,505)
 			mSleep(1000)
@@ -492,9 +488,9 @@ function all_farm()
 	end
 end
 
-function all_manual()
+function all_manual(account_num)
 	while true do
-		change_account()
+		change_account(account_num)
 		while true do
 			if isColor(929,249,0xf3ebdb,90) and isColor(931,253,0x946242,90) and isColor(936,256,0xf2ead9,90) and isColor(935,260,0x956344,90) and isColor(937,264,0xf0e7d6,90) and isColor(854,333,0xf0e4ce,90) and isColor(824,346,0x61342a,90) and isColor(791,400,0xd25547,90) and isColor(496,400,0xd25547,90) then
 

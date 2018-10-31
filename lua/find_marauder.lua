@@ -1,9 +1,8 @@
 require("smurf")
 require("helper")
 
-function find_marauder_main()
+function find_marauder_main(account_num)
 	nLog("start of find marauder main")
-	account_num = 1989
 
 	init('0',1)
 
@@ -27,9 +26,9 @@ function find_marauder_main()
 			goto post_run
 		end
 
-		rc = find_marauder_loop()
+		rc = find_marauder_loop(account_num)
 		if rc then
-			shell_run("touch /sdcard/log/aa.done")
+			shell_run("echo 1989 > /sdcard/log/aa.done")
 			closeApp("com.droidhang.ad")
 			mSleep(4000)
 			os.execute("pkill droidhang")
