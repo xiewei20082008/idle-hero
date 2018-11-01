@@ -28,7 +28,7 @@ function find_marauder_main(account_num)
 
 		rc = find_marauder_loop(account_num)
 		if rc then
-			shell_run("echo 1989 > /sdcard/log/aa.done")
+			shell_run("echo 1989 > /sdcard/log/aa.txt")
 			closeApp("com.droidhang.ad")
 			mSleep(4000)
 			os.execute("pkill droidhang")

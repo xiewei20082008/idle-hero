@@ -306,7 +306,12 @@ function find_marauder_loop(account_num)
 		if rc==false then
 			return false
 		end
-		back_mainpage()
+		while true do
+			if is_mainpage() then
+				break
+			end
+			mSleep(2000)
+		end
 		get_exp()
 		back_mainpage()
 		find_marauder()
@@ -315,7 +320,7 @@ function find_marauder_loop(account_num)
 			return true
 		end
 		account_num = account_num + 1
-		shell_run("echo "..account_num.." > /sdcard/log/aa.done")
+		shell_run("echo "..account_num.." > /sdcard/log/aa.txt")
 	end
 end
 
@@ -451,9 +456,9 @@ function nation_day_signup()
 end
 
 
-function all_farm()
+function all_farm(account_num)
 	while true do
-		change_account()
+		change_account(account_num)
 
 		while true do
 			if is_mainpage() then

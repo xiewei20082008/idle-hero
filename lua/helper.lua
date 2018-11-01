@@ -39,8 +39,8 @@ function move_to_top()
 end
 
 function move_to_left()
-	moveTo(545,600,1212,630)
-	mSleep(1000)
+	moveTo(545,600,1212,630,50)
+	mSleep(100)
 end
 
 function offline_reconnect()
@@ -81,7 +81,7 @@ function get_exp_loot1(loot)
 	start_time = os.time()
 	move_to_left()
 	click(1914,533)
-	mSleep(1500)
+	
 	while true do
 
 		if timeout(start_time, 1) then

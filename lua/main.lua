@@ -208,6 +208,8 @@ function open_box()
 	mSleep(2000)
 	click(1512,458)
 	mSleep(2000)
+	click(1380,370)
+	mSleep(2000)
 
 	--	点飞艇
 	click(560,820)
@@ -307,12 +309,12 @@ wifi = 1
 
 
 
-if file_exists("/sdcard/log/aa.done") then
-	value = tonumber(shell_run("cat /sdcard/log/aa.done"))
+if file_exists("/sdcard/log/aa.txt") then
+	value = tonumber(shell_run("cat /sdcard/log/aa.txt"))
 	if value==1989 then
-		last_mod_time = tonumber(shell_run("stat -c %Y /sdcard/log/aa.done"))
+		last_mod_time = tonumber(shell_run("stat -c %Y /sdcard/log/aa.txt"))
 		now_time = os.time()
-		wLog("test","aa.done exists and time diff is "..(now_time-last_mod_time))
+		wLog("test","aa.txt exists and time diff is "..(now_time-last_mod_time))
 		if now_time - last_mod_time > 8*60*60 + 300 then
 			nLog("find marauder as waiting time up")
 			rc = find_marauder_main(1989)
