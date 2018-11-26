@@ -466,13 +466,17 @@ function all_farm(account_num)
 			end
 			mSleep(2000)
 		end
-
+		
 		move_to_left()
 
 		click(1914,533)
 		mSleep(1500)
+		click(1636,648)
+		mSleep(1000)
 
 		back_mainpage()
+
+		move_to_left()
 
 		get_email()
 		back_mainpage()
@@ -480,8 +484,8 @@ function all_farm(account_num)
 		daily_signup()
 		back_mainpage()
 
-		island_clear()
-		back_mainpage()
+		--		island_clear()
+		--		back_mainpage()
 
 		--nation_day_signup()
 		--back_mainpage()
@@ -497,7 +501,7 @@ function all_manual(account_num)
 	while true do
 		change_account(account_num)
 		while true do
-			if isColor(929,249,0xf3ebdb,90) and isColor(931,253,0x946242,90) and isColor(936,256,0xf2ead9,90) and isColor(935,260,0x956344,90) and isColor(937,264,0xf0e7d6,90) and isColor(854,333,0xf0e4ce,90) and isColor(824,346,0x61342a,90) and isColor(791,400,0xd25547,90) and isColor(496,400,0xd25547,90) then
+			if isColor(901,84,0x9c6146,90) and isColor(916,100,0xe6d0ae,90) and isColor(923,105,0x9a6146,90) and isColor(930,103,0xe6d0ae,90) and isColor(933,109,0x975d42,90) and isColor(966,99,0x9c6146,90) then
 
 				back_mainpage()
 				break

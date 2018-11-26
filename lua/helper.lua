@@ -81,7 +81,7 @@ function get_exp_loot1(loot)
 	start_time = os.time()
 	move_to_left()
 	click(1914,533)
-	
+
 	while true do
 
 		if timeout(start_time, 1) then
@@ -194,7 +194,7 @@ function enter_game()
 
 		--x,y = findMultiColorInRegionFuzzy( 0xf2f1ed, "25|-15|0xe5e1dc,22|15|0xe3e5e4,59|-19|0x8f5237,56|2|0x874e36", 90, 468, 97, 660, 293)
 
-		if isColor(721,375,0x392f1f,90) and isColor(776,368,0x1d2319,90) and isColor(843,413,0x4c4c28,90) and isColor(922,475,0xe6dcca,90) and isColor(897,659,0x056ab0,90) and isColor(1023,661,0x1c0b00,90) and isColor(1030,573,0xf0cda2,90) then
+		if isColor(67,80,0x43b5ff,90) and isColor(68,68,0x0a4e99,90) and isColor(79,72,0x0a4d98,90) and isColor(84,61,0x51c0ff,90) and isColor(97,64,0x4ebdff,90) then
 			nLog("然后进入游戏")
 			click(500,500)
 		end
