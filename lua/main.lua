@@ -166,6 +166,12 @@ function get_mill_request()
 		click(960,940)
 		mSleep(200)
 	end
+	click(629,829)
+	mSleep(1500)
+	click(1046,825)
+	mSleep(1500)
+	click(1472,831)
+	mSleep(1500)
 	x,y = findMultiColorInRegionFuzzy( 0xa66f54, "4|0|0xe6cfad,9|4|0xd8be9d,11|4|0xa47054,6|17|0xe6d0ae,9|20|0x9d664a,49|9|0xd8bf9f,52|8|0x744d35", 90, 909, 75, 1014, 129)
 	if x~=-1 then
 		click(1378,260)
