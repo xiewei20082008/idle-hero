@@ -51,14 +51,12 @@ function offline_reconnect()
 end
 
 function is_mainpage()
-	x,y = findMultiColorInRegionFuzzy( 0xeca17c, "12|3|0x7e2f14,13|20|0xdc7a4d,30|6|0x7e2e13,43|24|0xdc7b4e,47|5|0x7d2b12", 90, 1767, 13, 1902, 83)
-	if x~=-1 then
-		click(x,y)
+	if isColor(1808,35,0xf8b891,90) and isColor(1826,46,0x7d2b14,90) and isColor(1816,62,0xd9764b,90) and isColor(1833,54,0x7e3016,90) and isColor(1856,60,0xdb784c,90) and isColor(1868,53,0xe09567,90) then
+		click(1828,56)
 		mSleep(1500)
 	end
 	offline_reconnect()
-	x,y = findMultiColorInRegionFuzzy( 0xfee281, "2|14|0xa95906,9|-3|0xfee78a,14|11|0xaf5709,33|-2|0xfee98e,34|12|0xa85806", 90, 1767, 13, 1902, 83)
-	if x~=-1 then
+	if isColor(1815,37,0xffed97,90) and isColor(1829,53,0xae5e0c,90) and isColor(1840,53,0xae5e0c,90) and isColor(1855,40,0xfee98d,90) and isColor(1839,73,0xfbc83f,90) then
 		return true
 	end
 	return false

@@ -20,14 +20,18 @@ function get_password()
 end
 
 function change_account(account_num)
+	
+	nLog("call into change account")
 	start_time = os.time()
 	while true do
 		if timeout(start_time, 2) then
 			wLog("test","change account timeout")
+			nLog("time out")
 			return false
 		end
 
 		if is_mainpage() then
+			nLog("is main page")
 			-- click at settings
 			click(1842,638)
 			mSleep(1000)
@@ -455,6 +459,47 @@ function nation_day_signup()
 	end
 end
 
+function shi_min()
+	account_num=1990
+	while true do
+		nLog("start to run")
+		
+		change_account(account_num)
+		while true do
+			if is_mainpage() then
+				break
+			end
+			mSleep(2000)
+		end
+
+		click(1838,630)
+		mSleep(1500)
+		click(1514,632)
+		mSleep(1500)
+		click(960,620)
+		mSleep(1500)
+
+		switchTSInputMethod(true)
+		--name
+		click(805,414)
+		mSleep(1500)
+
+		inputText("your name")
+		mSleep(800)
+		--identity
+		click(766,548)
+		mSleep(1500)
+		inputText("your identity")
+		mSleep(800)
+		click(944,688)
+		mSleep(500)
+		back_mainpage()
+		if account_num== 2029 then
+			break
+		end
+		account_num=account_num+1
+	end
+end
 
 function all_farm(account_num)
 	while true do
@@ -466,7 +511,7 @@ function all_farm(account_num)
 			end
 			mSleep(2000)
 		end
-		
+
 		move_to_left()
 
 		click(1914,533)
@@ -515,7 +560,6 @@ function all_manual(account_num)
 		mSleep(2000)
 	end
 end
+--init('0',1);
+--shi_min()
 
---init(app_name,1);
---all_pass_dungeon()
---main()
