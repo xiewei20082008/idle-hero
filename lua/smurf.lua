@@ -20,7 +20,7 @@ function get_password()
 end
 
 function change_account(account_num)
-	
+
 	nLog("call into change account")
 	start_time = os.time()
 	while true do
@@ -463,7 +463,7 @@ function shi_min()
 	account_num=1990
 	while true do
 		nLog("start to run")
-		
+
 		change_account(account_num)
 		while true do
 			if is_mainpage() then
@@ -500,6 +500,41 @@ function shi_min()
 		account_num=account_num+1
 	end
 end
+function buy_shards()
+	move_to_left()
+	click(760,901)
+	mSleep(3000)
+	--翻页
+	click(1686,674)
+	mSleep(1500)
+	click(539,705)
+	mSleep(1500)
+	click(1143,656)
+	mSleep(1500)
+	click(205,362)
+	mSleep(1500)
+	
+	click(826,695)
+	mSleep(1500)
+	click(1143,656)
+	mSleep(1500)
+	click(205,362)
+	mSleep(1500)
+	
+	click(1086,690)
+	mSleep(1500)
+	click(1143,656)
+	mSleep(1500)
+	click(205,362)
+	mSleep(1500)
+	
+	click(1376,697)
+	mSleep(1500)
+	click(1143,656)
+	mSleep(1500)
+	click(205,362)
+	mSleep(1500)
+end
 
 function all_farm(account_num)
 	while true do
@@ -527,6 +562,9 @@ function all_farm(account_num)
 		back_mainpage()
 
 		daily_signup()
+		back_mainpage()
+
+		buy_shards()
 		back_mainpage()
 
 		--		island_clear()
